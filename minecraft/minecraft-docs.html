@@ -601,11 +601,11 @@
 <body>
   <header class="topbar">
     <a class="brand" href="minecraft">
-      <img src="data/葉離.png" alt="葉離">
+      <img src="https://raw.githubusercontent.com/ItzSeir/ItzSeir/bc6a1e6687c70f0eb1ddcbd431e869bf2262dadb/Profile%20Pitcure/%E8%91%89%E9%9B%A2.png" alt="葉離">
       <span class="brandText">
         <span>葉離社群</span>
         <span class="slash">/</span>
-        <strong>Minecraft Docs</strong>
+        <strong>麥塊教學及公告</strong>
       </span>
     </a>
 
@@ -628,7 +628,6 @@
     <aside class="sidebar" id="sidebar">
       <h2 class="sidebarTitle">教學與資訊</h2>
       <p class="sidebarMeta">
-        此列表會自動讀取指定 GitHub 資料夾內的所有 Markdown 文件。
       </p>
 
       <div class="docList" id="docList">
@@ -872,18 +871,24 @@
 
       try{
         const markdown = await fetchMarkdown(file);
-        const title = titleFromMarkdown(markdown, file.name);
+const title = titleFromMarkdown(markdown, file.name);
 
-        const rawHtml = marked.parse(markdown);
-        const safeHtml = DOMPurify.sanitize(rawHtml, {
-          ADD_ATTR: ["target"]
-        });
+const markdownWithoutFirstTitle = markdown.replace(
+  /^#\s+.+(?:\r?\n)+/,
+  ""
+);
 
-        el.markdownBody.innerHTML = safeHtml;
-        el.docTitle.textContent = title;
-        el.docFile.textContent = `${DOCS_CONFIG.folder}/${file.name}`;
-        el.breadcrumbName.textContent = title;
-        document.title = `${title}｜Minecraft Docs`;
+const rawHtml = marked.parse(markdownWithoutFirstTitle);
+
+const safeHtml = DOMPurify.sanitize(rawHtml, {
+  ADD_ATTR: ["target"]
+});
+
+el.markdownBody.innerHTML = safeHtml;
+el.docTitle.textContent = title;
+el.docFile.textContent = `${DOCS_CONFIG.folder}/${file.name}`;
+el.breadcrumbName.textContent = title;
+document.title = `${title}｜Minecraft Docs`;
 
         prepareHeadings();
         buildToc();
