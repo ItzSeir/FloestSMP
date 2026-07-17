@@ -6,6 +6,19 @@
   <title>葉離 Minecraft｜教學與公告</title>
 
   <link rel="icon" type="image/png" href="data/葉離.png">
+
+  <script>
+    (function(){
+      try{
+        const saved = localStorage.getItem("docs-theme");
+        const prefersDark = window.matchMedia("(prefers-color-scheme: dark)").matches;
+        document.documentElement.dataset.theme = saved || (prefersDark ? "dark" : "light");
+      }catch(error){
+        document.documentElement.dataset.theme = "light";
+      }
+    })();
+  </script>
+
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -32,10 +45,68 @@
       --red-soft:#ffebe9;
       --purple:#8250df;
       --purple-soft:#fbefff;
-      --shadow:0 8px 24px rgba(140,149,159,.18);
+      --shadow:0 16px 40px rgba(31,53,72,.12);
+      --site-sea:#0f4c5c;
+      --site-teal:#2a9d8f;
+      --site-ice:#7bdff2;
+      --site-warm:#f4a261;
       --sidebar:286px;
       --toc:230px;
       --max:1500px;
+    }
+
+
+    html[data-theme="dark"]{
+      --bg:#0d1117;
+      --panel:#161b22;
+      --panel-soft:#21262d;
+      --border:#30363d;
+      --border-soft:#30363d;
+      --text:#e6edf3;
+      --muted:#8b949e;
+      --link:#58a6ff;
+      --green:#3fb950;
+      --green-soft:#12261b;
+      --orange:#d29922;
+      --orange-soft:#2d250f;
+      --red:#f85149;
+      --red-soft:#2d1517;
+      --purple:#a371f7;
+      --purple-soft:#241a35;
+      --shadow:0 18px 44px rgba(0,0,0,.38);
+      --site-sea:#7bdff2;
+      --site-teal:#57d5c3;
+      --site-ice:#9ee8f5;
+      --site-warm:#f6b26b;
+    }
+
+    .themeToggle{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      gap:8px;
+      min-height:38px;
+      padding:0 12px;
+      border:1px solid var(--border);
+      border-radius:8px;
+      color:var(--text);
+      background:var(--panel);
+      cursor:pointer;
+      font-size:13px;
+      font-weight:800;
+      white-space:nowrap;
+      transition:.16s ease;
+    }
+
+    .themeToggle:hover{
+      color:var(--link);
+      border-color:var(--link);
+      transform:translateY(-1px);
+    }
+
+    .themeIcon{
+      font-size:16px;
+      line-height:1;
     }
 
     *{ box-sizing:border-box; }
@@ -54,6 +125,7 @@
     a{ color:var(--link); }
 
     .topbar{
+      color:var(--text);
       position:sticky;
       top:0;
       z-index:1000;
@@ -63,7 +135,7 @@
       gap:16px;
       padding:10px 20px;
       border-bottom:1px solid var(--border);
-      background:rgba(255,255,255,.96);
+      background:color-mix(in srgb, var(--panel) 96%, transparent);
       backdrop-filter:blur(14px);
       -webkit-backdrop-filter:blur(14px);
     }
@@ -117,7 +189,7 @@
 
     .searchInput:focus{
       border-color:#54aeff;
-      background:#fff;
+      background:var(--panel);
       box-shadow:0 0 0 3px rgba(84,174,255,.25);
     }
 
@@ -139,7 +211,7 @@
       border:1px solid var(--border);
       border-radius:5px;
       color:var(--muted);
-      background:#fff;
+      background:var(--panel);
       font-size:11px;
       font-weight:700;
     }
@@ -160,7 +232,7 @@
       height:38px;
       border:1px solid var(--border);
       border-radius:7px;
-      background:#fff;
+      background:var(--panel);
       cursor:pointer;
     }
 
@@ -173,13 +245,14 @@
     }
 
     .sidebar{
+      color:var(--text);
       position:sticky;
       top:64px;
       height:calc(100vh - 64px);
       overflow:auto;
       padding:24px 18px 40px;
       border-right:1px solid var(--border);
-      background:#fff;
+      background:var(--panel);
     }
 
     .sidebarTitle{
@@ -251,7 +324,8 @@
     .content{
       min-width:0;
       padding:34px clamp(24px,4vw,64px) 80px;
-      background:#fff;
+      color:var(--text);
+      background:var(--panel);
     }
 
     .docHeader{
@@ -343,7 +417,7 @@
     .markdownBody code{
       padding:.18em .38em;
       border-radius:5px;
-      background:rgba(175,184,193,.22);
+      background:color-mix(in srgb, var(--muted) 22%, transparent);
       font-family:ui-monospace,SFMono-Regular,Consolas,"Liberation Mono",monospace;
       font-size:85%;
     }
@@ -354,7 +428,7 @@
       padding:16px;
       border:1px solid var(--border);
       border-radius:7px;
-      background:#f6f8fa;
+      background:var(--panel-soft);
       line-height:1.5;
     }
 
@@ -408,7 +482,7 @@
     .markdownBody .notice,
     .markdownBody .info{
       border-color:#54aeff;
-      background:#ddf4ff;
+      background:color-mix(in srgb, var(--link) 14%, var(--panel));
     }
 
     .markdownBody .warning{
@@ -435,13 +509,14 @@
     }
 
     .toc{
+      color:var(--text);
       position:sticky;
       top:64px;
       height:calc(100vh - 64px);
       overflow:auto;
       padding:30px 20px;
       border-left:1px solid var(--border);
-      background:#fff;
+      background:var(--panel);
     }
 
     .tocTitle{
@@ -505,7 +580,7 @@
       padding:7px;
       border:1px solid var(--border);
       border-radius:8px;
-      background:#fff;
+      background:var(--panel);
       box-shadow:var(--shadow);
     }
 
@@ -534,6 +609,277 @@
     .searchResult span{
       color:var(--muted);
       font-size:11px;
+    }
+
+
+    .searchInput::placeholder{
+      color:var(--muted);
+      opacity:.92;
+    }
+
+    mark{
+      color:inherit;
+      background:#fff1a8;
+      border-radius:3px;
+      padding:0 .08em;
+    }
+
+    html[data-theme="dark"] mark{
+      color:#0d1117;
+      background:#f2cc60;
+    }
+
+    html[data-theme="dark"] .docItem.active{
+      color:#ffffff;
+      background:#1f6feb;
+    }
+
+    html[data-theme="dark"] .markdownBody .notice,
+    html[data-theme="dark"] .markdownBody .info{
+      border-color:#1f6feb;
+      background:#0c2d4a;
+    }
+
+    html[data-theme="dark"] .markdownBody .warning{
+      border-color:#9e6a03;
+      background:#332701;
+    }
+
+    html[data-theme="dark"] .markdownBody .danger{
+      border-color:#da3633;
+      background:#3c1518;
+    }
+
+    html[data-theme="dark"] .markdownBody img{
+      background:#ffffff;
+    }
+
+
+    /* =========================
+       葉離／WhereWindMeet 風格
+    ========================= */
+
+    body{
+      background:
+        radial-gradient(circle at 10% -10%, color-mix(in srgb, var(--site-teal) 16%, transparent), transparent 34%),
+        radial-gradient(circle at 88% 6%, color-mix(in srgb, var(--site-ice) 15%, transparent), transparent 30%),
+        var(--bg);
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      z-index:-1;
+      background-image:
+        linear-gradient(color-mix(in srgb, var(--site-sea) 5%, transparent) 1px, transparent 1px),
+        linear-gradient(90deg, color-mix(in srgb, var(--site-sea) 5%, transparent) 1px, transparent 1px);
+      background-size:42px 42px;
+      mask-image:linear-gradient(180deg, rgba(0,0,0,.7), transparent 78%);
+    }
+
+    .topbar{
+      margin:12px 14px 0;
+      min-height:66px;
+      border:1px solid var(--border);
+      border-radius:20px;
+      box-shadow:var(--shadow);
+    }
+
+    .brand img{
+      border-radius:12px;
+      box-shadow:0 8px 18px color-mix(in srgb, var(--site-sea) 18%, transparent);
+    }
+
+    .brandText strong{
+      color:var(--site-sea);
+    }
+
+    .searchInput{
+      border-radius:999px;
+      padding-left:40px;
+    }
+
+    .searchInput:focus{
+      border-color:var(--site-teal);
+      box-shadow:0 0 0 3px color-mix(in srgb, var(--site-teal) 20%, transparent);
+    }
+
+    .themeToggle,
+    .mobileMenuBtn{
+      border-radius:999px;
+    }
+
+    .themeToggle:hover{
+      color:var(--site-sea);
+      border-color:var(--site-teal);
+      background:color-mix(in srgb, var(--site-teal) 10%, var(--panel));
+    }
+
+    .layout{
+      width:min(calc(100% - 28px), var(--max));
+      margin:14px auto 28px;
+      min-height:calc(100vh - 96px);
+      border:1px solid var(--border);
+      border-radius:24px;
+      overflow:hidden;
+      box-shadow:var(--shadow);
+      background:var(--panel);
+    }
+
+    .sidebar,
+    .content,
+    .toc{
+      top:94px;
+      height:calc(100vh - 108px);
+    }
+
+    .sidebarTitle{
+      color:var(--site-sea);
+      letter-spacing:.02em;
+    }
+
+    .docItem{
+      border-radius:12px;
+      transition:.16s ease;
+    }
+
+    .docItem:hover{
+      transform:translateX(3px);
+      background:color-mix(in srgb, var(--site-teal) 9%, var(--panel-soft));
+    }
+
+    .docItem.active{
+      color:#fff;
+      background:linear-gradient(135deg, var(--site-sea), var(--site-teal));
+      box-shadow:0 10px 22px color-mix(in srgb, var(--site-sea) 24%, transparent);
+    }
+
+    .statusBox{
+      border-style:dashed;
+      border-radius:14px;
+    }
+
+    .docHeader{
+      position:relative;
+      padding:22px 24px;
+      border:1px solid var(--border);
+      border-radius:20px;
+      background:
+        linear-gradient(135deg,
+          color-mix(in srgb, var(--site-sea) 7%, var(--panel)),
+          color-mix(in srgb, var(--site-teal) 7%, var(--panel))
+        );
+      overflow:hidden;
+    }
+
+    .docHeader::after{
+      content:"";
+      position:absolute;
+      right:-48px;
+      bottom:-62px;
+      width:150px;
+      height:150px;
+      border-radius:50%;
+      border:24px solid color-mix(in srgb, var(--site-sea) 7%, transparent);
+      pointer-events:none;
+    }
+
+    .docTitle{
+      position:relative;
+      z-index:1;
+      color:var(--text);
+    }
+
+    .breadcrumb,
+    .docFile{
+      position:relative;
+      z-index:1;
+    }
+
+    .markdownBody h2{
+      border-bottom-color:color-mix(in srgb, var(--site-teal) 30%, var(--border));
+    }
+
+    .markdownBody h2::before{
+      content:"";
+      display:inline-block;
+      width:6px;
+      height:20px;
+      margin-right:10px;
+      border-radius:999px;
+      vertical-align:-2px;
+      background:linear-gradient(180deg, var(--site-sea), var(--site-teal));
+    }
+
+    .markdownBody blockquote{
+      border-left-color:var(--site-teal);
+      border-radius:0 12px 12px 0;
+    }
+
+    .tocLink{
+      border-radius:8px;
+      transition:.15s ease;
+    }
+
+    .tocLink:hover{
+      color:var(--site-sea);
+      border-left-color:var(--site-teal);
+      background:color-mix(in srgb, var(--site-teal) 7%, transparent);
+    }
+
+
+    .tocLink.active{
+      color:var(--site-sea);
+      font-weight:900;
+      border-left-color:var(--site-teal);
+      background:color-mix(in srgb, var(--site-teal) 12%, transparent);
+    }
+
+    .tocLink.active::before{
+      content:"●";
+      display:inline-block;
+      margin-right:7px;
+      color:var(--site-teal);
+      font-size:8px;
+      vertical-align:2px;
+    }
+
+    .searchResults{
+      border-radius:16px;
+    }
+
+    .searchResult{
+      border-radius:10px;
+    }
+
+    @media (max-width:760px){
+      .topbar{
+        margin:8px 8px 0;
+        border-radius:18px;
+      }
+
+      .layout{
+        width:calc(100% - 16px);
+        margin:10px auto 18px;
+        border-radius:20px;
+      }
+
+      .sidebar{
+        top:0;
+        height:100vh;
+        border-radius:0 20px 20px 0;
+      }
+
+      .content{
+        height:auto;
+      }
+
+      .docHeader{
+        padding:18px;
+        border-radius:18px;
+      }
     }
 
     @media (max-width:1100px){
@@ -617,6 +963,11 @@
       <span class="searchKey">/</span>
       <div class="searchResults" id="searchResults"></div>
     </div>
+
+    <button class="themeToggle" id="themeToggle" type="button" aria-label="切換顯示主題">
+      <span class="themeIcon" id="themeIcon">🌙</span>
+      <span id="themeText">夜晚</span>
+    </button>
 
     <a class="topLink" href="minecraft">返回麥塊首頁</a>
     <a class="topLink" href="index.html">社群首頁</a>
@@ -712,7 +1063,10 @@
       searchResults: document.getElementById("searchResults"),
       sidebar: document.getElementById("sidebar"),
       mobileMenuBtn: document.getElementById("mobileMenuBtn"),
-      sidebarBackdrop: document.getElementById("sidebarBackdrop")
+      sidebarBackdrop: document.getElementById("sidebarBackdrop"),
+      themeToggle: document.getElementById("themeToggle"),
+      themeIcon: document.getElementById("themeIcon"),
+      themeText: document.getElementById("themeText")
     };
 
     marked.setOptions({
@@ -892,6 +1246,7 @@ document.title = `${title}｜Minecraft Docs`;
 
         prepareHeadings();
         buildToc();
+        updateActiveToc();
 
         if(updateHash){
           history.replaceState(null, "", `#doc=${encodeURIComponent(file.name)}`);
@@ -957,6 +1312,45 @@ document.title = `${title}｜Minecraft Docs`;
           ${escapeHtml(heading.textContent)}
         </a>
       `).join("");
+    }
+
+
+    function updateActiveToc(){
+      const headings = Array.from(
+        el.markdownBody.querySelectorAll("h2, h3")
+      );
+
+      const links = Array.from(
+        el.tocList.querySelectorAll(".tocLink")
+      );
+
+      if(!headings.length || !links.length) return;
+
+      let currentId = headings[0].id;
+
+      for(const heading of headings){
+        const top = heading.getBoundingClientRect().top;
+
+        if(top <= 150){
+          currentId = heading.id;
+        }else{
+          break;
+        }
+      }
+
+      links.forEach(link => {
+        const isActive =
+          link.getAttribute("href") === `#${currentId}`;
+
+        link.classList.toggle("active", isActive);
+
+        if(isActive){
+          link.scrollIntoView({
+            block:"nearest",
+            behavior:"smooth"
+          });
+        }
+      });
     }
 
     async function searchDocuments(keyword){
@@ -1093,6 +1487,55 @@ document.title = `${title}｜Minecraft Docs`;
 
     el.mobileMenuBtn.addEventListener("click", openSidebar);
     el.sidebarBackdrop.addEventListener("click", closeSidebar);
+
+
+    window.addEventListener(
+      "scroll",
+      updateActiveToc,
+      { passive:true }
+    );
+
+    window.addEventListener(
+      "resize",
+      updateActiveToc,
+      { passive:true }
+    );
+
+
+    function applyTheme(theme){
+      const finalTheme = theme === "dark" ? "dark" : "light";
+
+      document.documentElement.dataset.theme = finalTheme;
+      localStorage.setItem("docs-theme", finalTheme);
+
+      const isDark = finalTheme === "dark";
+
+      el.themeIcon.textContent = isDark ? "☀️" : "🌙";
+      el.themeText.textContent = isDark ? "白天" : "夜晚";
+
+      el.themeToggle.setAttribute(
+        "aria-label",
+        isDark ? "切換到白天模式" : "切換到夜晚模式"
+      );
+    }
+
+    function initTheme(){
+      const savedTheme = localStorage.getItem("docs-theme");
+      const systemPrefersDark =
+        window.matchMedia &&
+        window.matchMedia("(prefers-color-scheme: dark)").matches;
+
+      applyTheme(savedTheme || (systemPrefersDark ? "dark" : "light"));
+
+      el.themeToggle.addEventListener("click", () => {
+        const currentTheme =
+          document.documentElement.dataset.theme || "light";
+
+        applyTheme(currentTheme === "dark" ? "light" : "dark");
+      });
+    }
+
+    initTheme();
 
     loadFolder();
   </script>
