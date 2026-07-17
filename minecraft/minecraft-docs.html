@@ -236,12 +236,13 @@
       cursor:pointer;
     }
 
-.layout{
-    width:min(calc(100% - 40px), var(--max));
-    margin:20px auto 0;              /* ← 34px 改成 0 */
-    height:calc(100vh - 118px);      /* ← min-height 改成 height */
-    ...
-}
+    .layout{
+      width:min(100%, var(--max));
+      margin:0 auto;
+      display:grid;
+      grid-template-columns:var(--sidebar) minmax(0,1fr) var(--toc);
+      min-height:calc(100vh - 64px);
+    }
 
     .sidebar{
       color:var(--text);
