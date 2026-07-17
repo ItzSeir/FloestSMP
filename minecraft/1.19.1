@@ -1,0 +1,2655 @@
+<!doctype html>
+<html lang="zh-Hant">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>葉離｜1.19.1 原味生存</title>
+  <link rel="icon" type="image/png" href="Profile Pitcure/葉離.png">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    :root{
+      --bg:#eef4f7;
+      --surface:#ffffff;
+      --surface-glass:rgba(255,255,255,.84);
+      --line:rgba(25,42,58,.10);
+      --line-strong:rgba(25,42,58,.16);
+      --text:#163042;
+      --heading:#122c3c;
+      --muted:#6a7d89;
+      --sea:#0f4c5c;
+      --teal:#2a9d8f;
+      --ice:#7bdff2;
+      --warm:#f4a261;
+      --shadow:0 18px 50px rgba(31,53,72,.12);
+      --shadow-soft:0 10px 30px rgba(31,53,72,.08);
+      --max:1240px;
+    }
+
+    *{ box-sizing:border-box; }
+
+    html{ scroll-behavior:smooth; }
+
+    body{
+      margin:0;
+      min-height:100vh;
+      font-family:"Noto Sans TC", system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      color:var(--text);
+      background:
+        radial-gradient(circle at 10% -10%, rgba(42,157,143,.18), transparent 34%),
+        radial-gradient(circle at 88% 6%, rgba(123,223,242,.18), transparent 30%),
+        linear-gradient(180deg, #f7fbfc 0%, var(--bg) 48%, #ffffff 100%);
+      overflow-x:hidden;
+    }
+
+    body::before{
+      content:"";
+      position:fixed;
+      inset:0;
+      pointer-events:none;
+      background-image:
+        linear-gradient(rgba(15,76,92,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(15,76,92,.05) 1px, transparent 1px);
+      background-size:42px 42px;
+      mask-image:linear-gradient(180deg, rgba(0,0,0,.72), transparent 76%);
+      z-index:-1;
+    }
+
+    a{ color:inherit; }
+    button{ font:inherit; }
+
+    .page{
+      width:min(var(--max), calc(100% - 32px));
+      margin:0 auto;
+      padding:28px 0 54px;
+    }
+
+    .topbar{
+      position:sticky;
+      top:12px;
+      z-index:50;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+      margin-bottom:22px;
+      padding:12px 14px;
+      border:1px solid var(--line);
+      border-radius:999px;
+      background:rgba(255,255,255,.72);
+      backdrop-filter:blur(18px);
+      box-shadow:0 10px 30px rgba(31,53,72,.08);
+    }
+
+   .brand{
+      display:flex;
+      align-items:center;
+      gap:10px;
+      min-width:0;
+      text-decoration:none;
+    }
+
+    .brandMark{
+      width:36px;
+      height:36px;
+      flex:0 0 auto;
+      border-radius:14px;
+      overflow:hidden;
+      background:linear-gradient(135deg, var(--sea), var(--teal));
+      box-shadow:0 10px 22px rgba(15,76,92,.22);
+    }
+    
+    .brandMark img{
+      width:100%;
+      height:100%;
+      object-fit:cover;
+      display:block;
+    }
+
+    .brandText{
+      display:flex;
+      flex-direction:column;
+      min-width:0;
+      line-height:1.1;
+    }
+
+    .brandText strong{
+      font-size:14px;
+      font-weight:900;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .brandText span{
+      margin-top:4px;
+      color:var(--muted);
+      font-size:11px;
+      font-weight:800;
+      white-space:nowrap;
+    }
+
+    .navPills{
+      display:flex;
+      align-items:center;
+      justify-content:flex-end;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .navPills a{
+      text-decoration:none;
+      color:#264052;
+      font-size:12px;
+      font-weight:900;
+      padding:9px 12px;
+      border-radius:999px;
+      transition:.18s ease;
+    }
+
+    .navPills a:hover,
+    .navPills a.active{
+      color:var(--sea);
+      background:linear-gradient(135deg, rgba(15,76,92,.10), rgba(42,157,143,.12));
+    }
+
+    .hero{
+      position:relative;
+      min-height:330px;
+      padding:34px;
+      margin-bottom:22px;
+      border:1px solid var(--line);
+      border-radius:32px;
+      background:
+        linear-gradient(135deg, rgba(255,255,255,.98), rgba(236,245,246,.90)),
+        radial-gradient(circle at 86% 14%, rgba(42,157,143,.15), transparent 34%);
+      backdrop-filter:blur(18px);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .hero::after{
+      content:"";
+      position:absolute;
+      right:-120px;
+      bottom:-150px;
+      width:340px;
+      height:340px;
+      border-radius:50%;
+      border:42px solid rgba(15,76,92,.075);
+      pointer-events:none;
+    }
+
+    .eyebrow,
+    .miniPill,
+    .mem-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      width:max-content;
+      max-width:100%;
+      padding:7px 12px;
+      border-radius:999px;
+      color:#9a5a12;
+      background:linear-gradient(135deg, rgba(244,162,97,.18), rgba(255,239,221,.92));
+      border:1px solid rgba(244,162,97,.22);
+      box-shadow:0 8px 18px rgba(244,162,97,.10);
+      font-size:12px;
+      font-weight:900;
+      white-space:nowrap;
+    }
+
+    .eyebrow.sea{
+      color:var(--sea);
+      background:rgba(15,76,92,.08);
+      border-color:rgba(15,76,92,.14);
+      box-shadow:none;
+    }
+
+    .pillDot{
+      width:5px;
+      height:5px;
+      border-radius:999px;
+      background:#c97920;
+      box-shadow:0 0 0 4px rgba(244,162,97,.13);
+      flex:0 0 auto;
+    }
+
+    .dot{
+      width:9px;
+      height:9px;
+      border-radius:999px;
+      display:inline-block;
+      background:var(--teal);
+      flex:0 0 auto;
+    }
+
+    .heroTitle{
+      position:relative;
+      z-index:1;
+      margin:24px 0 18px;
+      font-size:clamp(38px, 5vw, 66px);
+      line-height:1.12;
+      letter-spacing:-.045em;
+      font-weight:900;
+      color:var(--heading);
+    }
+
+    .heroTitle span{
+      display:block;
+      color:transparent;
+      background:linear-gradient(135deg, var(--sea), var(--teal));
+      -webkit-background-clip:text;
+      background-clip:text;
+    }
+
+    .heroDesc{
+      position:relative;
+      z-index:1;
+      max-width:760px;
+      margin:0;
+      color:#5e717d;
+      line-height:1.85;
+      font-size:14px;
+      font-weight:650;
+    }
+
+    .heroActions{
+      position:relative;
+      z-index:1;
+      display:flex;
+      gap:10px;
+      flex-wrap:wrap;
+      margin-top:26px;
+    }
+
+    .actionBtn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:44px;
+      padding:0 16px;
+      border:0;
+      border-radius:999px;
+      font-size:13px;
+      font-weight:900;
+      cursor:pointer;
+      text-decoration:none;
+      color:#fff;
+      background:linear-gradient(135deg, var(--sea), var(--teal));
+      box-shadow:0 14px 28px rgba(15,76,92,.20);
+      transition:transform .16s ease, box-shadow .16s ease;
+    }
+
+    .actionBtn:hover{
+      transform:translateY(-2px);
+      box-shadow:0 18px 34px rgba(15,76,92,.24);
+    }
+
+    .ghostBtn{
+      color:#1d3a4a;
+      background:#fff;
+      border:1px solid var(--line-strong);
+      box-shadow:0 10px 22px rgba(31,53,72,.07);
+    }
+
+    .section{
+      scroll-margin-top:110px;
+      margin-top:22px;
+      border:1px solid var(--line);
+      border-radius:32px;
+      background:rgba(255,255,255,.76);
+      backdrop-filter:blur(18px);
+      box-shadow:var(--shadow);
+      overflow:hidden;
+    }
+
+    .sectionHead{
+      display:flex;
+      align-items:flex-end;
+      justify-content:space-between;
+      gap:16px;
+      padding:24px 24px 16px;
+      border-bottom:1px solid var(--line);
+      background:
+        linear-gradient(135deg, rgba(15,76,92,.06), rgba(42,157,143,.05)),
+        rgba(255,255,255,.58);
+    }
+
+    .sectionKicker{
+      display:flex;
+      align-items:center;
+      gap:8px;
+      color:var(--sea);
+      font-size:12px;
+      font-weight:900;
+      margin-bottom:7px;
+      text-transform:uppercase;
+      letter-spacing:.04em;
+    }
+
+    .sectionTitle{
+      margin:0;
+      color:var(--heading);
+      font-size:clamp(24px, 3vw, 38px);
+      line-height:1.18;
+      letter-spacing:-.035em;
+      font-weight:900;
+    }
+
+    .sectionDesc{
+      margin:8px 0 0;
+      max-width:760px;
+      color:var(--muted);
+      font-size:13px;
+      line-height:1.75;
+      font-weight:650;
+    }
+
+    .summaryCard{
+      margin-top:22px;
+      width:min(560px, 100%);
+      padding:18px;
+      border-radius:24px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.78);
+      backdrop-filter:blur(18px);
+      box-shadow:var(--shadow-soft);
+    }
+
+    .summaryHead{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      flex-wrap:wrap;
+    }
+
+    .summaryTitle{
+      margin:0;
+      color:var(--heading);
+      font-size:22px;
+      font-weight:900;
+      letter-spacing:-.03em;
+    }
+
+    .playerBlock{
+      margin-top:16px;
+    }
+
+    .playerLabel{
+      margin:0 0 10px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:900;
+    }
+
+    .chips{
+      display:flex;
+      gap:8px;
+      flex-wrap:wrap;
+    }
+
+    .chip{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:34px;
+      padding:0 13px;
+      border-radius:999px;
+      color:var(--heading);
+      background:rgba(255,255,255,.82);
+      border:1px solid var(--line);
+      box-shadow:0 8px 18px rgba(31,53,72,.07);
+      font-size:13px;
+      font-weight:900;
+      white-space:nowrap;
+    }
+
+    .townIntro{
+      padding:24px;
+    }
+
+    .quoteBox{
+      position:relative;
+      padding:0 0 0 18px;
+      margin:18px 0 0;
+      color:#536b77;
+      font-size:14px;
+      line-height:1.9;
+      font-weight:700;
+    }
+
+    .quoteBox::before{
+      content:"";
+      position:absolute;
+      left:0;
+      top:4px;
+      bottom:4px;
+      width:4px;
+      border-radius:999px;
+      background:linear-gradient(180deg, var(--sea), var(--teal));
+    }
+
+    .mem-grid{
+      display:grid;
+      grid-template-columns:repeat(3, minmax(0, 1fr));
+      gap:18px;
+      padding:0 24px 24px;
+    }
+
+    .mem-card{
+      min-width:0;
+      padding:16px;
+      border-radius:24px;
+      border:1px solid var(--line);
+      background:rgba(255,255,255,.88);
+      backdrop-filter:blur(16px);
+      box-shadow:var(--shadow-soft);
+      transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+    }
+
+    .mem-card:hover{
+      transform:translateY(-3px);
+      border-color:rgba(15,76,92,.18);
+      box-shadow:0 18px 38px rgba(31,53,72,.13);
+    }
+
+    .mem-head{
+      display:flex;
+      align-items:center;
+      gap:12px;
+      min-width:0;
+      margin-bottom:14px;
+    }
+
+    .mem-title{
+      margin:0;
+      min-width:0;
+      color:var(--heading);
+      font-size:22px;
+      line-height:1.2;
+      letter-spacing:-.03em;
+      font-weight:900;
+      overflow:hidden;
+      text-overflow:ellipsis;
+      white-space:nowrap;
+    }
+
+    .mem-middle{
+      height:190px;
+      border-radius:16px;
+      background-size:cover;
+      background-position:center;
+      background-repeat:no-repeat;
+      border:1px solid rgba(25,42,58,.12);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .mem-middle::after{
+      content:"";
+      position:absolute;
+      inset:0;
+      background:linear-gradient(180deg, rgba(255,255,255,0), rgba(15,76,92,.05));
+      pointer-events:none;
+    }
+
+    .mem-roles{
+      margin-top:14px;
+      display:grid;
+      grid-template-columns:repeat(3, 1fr);
+      gap:10px;
+    }
+
+    .role-box{
+      min-width:0;
+      min-height:66px;
+      padding:10px 12px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background:#fff;
+    }
+
+    .role-label{
+      display:block;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:900;
+    }
+
+    .role-name{
+      display:block;
+      margin-top:7px;
+      color:var(--heading);
+      font-size:14px;
+      line-height:1.25;
+      font-weight:900;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .empty{
+      color:#b0bdc5;
+    }
+
+    .footerNote{
+      margin-top:22px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:700;
+      text-align:center;
+    }
+
+    @media (max-width:1060px){
+      .mem-grid{
+        grid-template-columns:repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width:780px){
+      .page{
+        width:min(100% - 20px, var(--max));
+        padding-top:14px;
+      }
+
+      .topbar{
+        top:8px;
+        align-items:flex-start;
+        flex-direction:column;
+        border-radius:22px;
+      }
+
+      .navPills{
+        width:100%;
+        justify-content:flex-start;
+        flex-wrap:nowrap;
+        overflow:auto;
+        padding-bottom:2px;
+      }
+
+      .navPills a{ flex:0 0 auto; }
+
+      .hero{
+        min-height:auto;
+        padding:24px;
+        border-radius:26px;
+      }
+
+      .section{
+        border-radius:26px;
+      }
+
+      .sectionHead{
+        align-items:flex-start;
+        flex-direction:column;
+        padding:20px;
+      }
+
+      .townIntro{
+        padding:20px;
+      }
+
+      .mem-grid{
+        grid-template-columns:1fr;
+        padding:0 20px 20px;
+      }
+    }
+
+    @media (max-width:560px){
+      body{ background:#f7fbfc; }
+
+      .page{
+        width:100%;
+        padding:10px 10px 34px;
+      }
+
+      .hero,
+      .section{
+        border-radius:22px;
+      }
+
+      .heroTitle{
+        font-size:42px;
+        line-height:1.16;
+        letter-spacing:-.035em;
+      }
+
+      .heroActions{
+        flex-direction:column;
+      }
+
+      .actionBtn{
+        width:100%;
+      }
+
+      .summaryCard{
+        border-radius:22px;
+      }
+
+      .mem-roles{
+        grid-template-columns:1fr;
+      }
+    }
+
+
+    /* 圖片預覽與下載 */
+    .mem-middle{
+      cursor:zoom-in;
+      transition:transform .2s ease, filter .2s ease;
+    }
+
+    .mem-middle:hover{
+      transform:scale(1.015);
+      filter:brightness(.92);
+    }
+
+    .mem-middle::before{
+      content:"🔍 點擊放大";
+      position:absolute;
+      right:10px;
+      bottom:10px;
+      z-index:2;
+      padding:7px 11px;
+      border-radius:999px;
+      color:#fff;
+      background:rgba(10,24,34,.68);
+      backdrop-filter:blur(8px);
+      box-shadow:0 8px 18px rgba(0,0,0,.18);
+      font-size:11px;
+      font-weight:900;
+      opacity:0;
+      transform:translateY(5px);
+      transition:opacity .18s ease, transform .18s ease;
+      pointer-events:none;
+    }
+
+    .mem-middle:hover::before{
+      opacity:1;
+      transform:translateY(0);
+    }
+
+    body.lightbox-open{
+      overflow:hidden;
+    }
+
+    .image-lightbox{
+      position:fixed;
+      inset:0;
+      z-index:9999;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:78px 22px 92px;
+      background:rgba(4,13,20,.90);
+      backdrop-filter:blur(14px);
+      opacity:0;
+      visibility:hidden;
+      transition:opacity .22s ease, visibility .22s ease;
+    }
+
+    .image-lightbox.show{
+      opacity:1;
+      visibility:visible;
+    }
+
+    .lightbox-image{
+      display:block;
+      max-width:min(94vw, 1500px);
+      max-height:calc(100vh - 180px);
+      object-fit:contain;
+      border-radius:18px;
+      background:#0c1c25;
+      box-shadow:0 28px 80px rgba(0,0,0,.52);
+      transform:scale(.96);
+      transition:transform .22s ease;
+      user-select:none;
+    }
+
+    .image-lightbox.show .lightbox-image{
+      transform:scale(1);
+    }
+
+    .lightbox-topbar{
+      position:absolute;
+      top:18px;
+      left:20px;
+      right:20px;
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      gap:16px;
+    }
+
+    .lightbox-title{
+      min-width:0;
+      color:#fff;
+      font-size:14px;
+      font-weight:900;
+      white-space:nowrap;
+      overflow:hidden;
+      text-overflow:ellipsis;
+    }
+
+    .lightbox-close,
+    .lightbox-nav{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      border:1px solid rgba(255,255,255,.20);
+      color:#fff;
+      background:rgba(255,255,255,.10);
+      backdrop-filter:blur(10px);
+      cursor:pointer;
+      transition:.18s ease;
+    }
+
+    .lightbox-close{
+      width:44px;
+      height:44px;
+      flex:0 0 auto;
+      border-radius:50%;
+      font-size:26px;
+      line-height:1;
+    }
+
+    .lightbox-close:hover,
+    .lightbox-nav:hover{
+      background:rgba(255,255,255,.20);
+      transform:scale(1.04);
+    }
+
+    .lightbox-nav{
+      position:absolute;
+      top:50%;
+      width:48px;
+      height:58px;
+      border-radius:16px;
+      transform:translateY(-50%);
+      font-size:28px;
+    }
+
+    .lightbox-nav:hover{
+      transform:translateY(-50%) scale(1.04);
+    }
+
+    .lightbox-prev{ left:18px; }
+    .lightbox-next{ right:18px; }
+
+    .lightbox-actions{
+      position:absolute;
+      left:50%;
+      bottom:24px;
+      display:flex;
+      align-items:center;
+      gap:10px;
+      transform:translateX(-50%);
+    }
+
+    .lightbox-download{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:46px;
+      padding:0 20px;
+      border:0;
+      border-radius:999px;
+      color:#fff;
+      background:linear-gradient(135deg, var(--sea), var(--teal));
+      box-shadow:0 14px 30px rgba(0,0,0,.28);
+      font-size:13px;
+      font-weight:900;
+      cursor:pointer;
+      transition:.18s ease;
+    }
+
+    .lightbox-download:hover{
+      transform:translateY(-2px);
+    }
+
+    .lightbox-download:disabled{
+      cursor:wait;
+      opacity:.72;
+    }
+
+    @media (hover:none){
+      .mem-middle::before{
+        opacity:1;
+        transform:none;
+      }
+    }
+
+    @media (max-width:680px){
+      .image-lightbox{
+        padding:72px 10px 88px;
+      }
+
+      .lightbox-image{
+        max-width:96vw;
+        max-height:calc(100vh - 168px);
+        border-radius:12px;
+      }
+
+      .lightbox-topbar{
+        top:12px;
+        left:12px;
+        right:12px;
+      }
+
+      .lightbox-nav{
+        width:42px;
+        height:52px;
+        border-radius:14px;
+      }
+
+      .lightbox-prev{ left:8px; }
+      .lightbox-next{ right:8px; }
+      .lightbox-actions{ bottom:18px; }
+    }
+
+  </style>
+</head>
+
+<body>
+  <main class="page">
+    <header class="topbar">
+      <a class="brand" href="../" aria-label="返回葉離首頁">
+      <div class="brandMark"> <img src="https://raw.githubusercontent.com/ItzSeir/ItzSeir/bc6a1e6687c70f0eb1ddcbd431e869bf2262dadb/Profile%20Pitcure/%E8%91%89%E9%9B%A2.png" alt="葉離"> </div>
+        <div class="brandText">
+          <strong>葉離社群</strong>
+          <span>Minecraft memory archive</span>
+        </div>
+      </a>
+
+      <nav class="navPills" aria-label="主選單">
+        <a href="https://itzseir.github.io/ItzSeir/floestsmp">首頁</a>
+        <a href="activities">往期活動</a>
+        <a class="active" href="1.19.1.html">麥塊</a>
+        <a href="other">其他</a>
+        <a href="information">資訊</a>
+      </nav>
+    </header>
+
+    <section class="hero" id="top">
+      <div class="eyebrow sea"><span class="dot"></span> Minecraft Memory</div>
+      <h1 class="heroTitle">1.19.1<span>原味生存</span></h1>
+      <p class="heroDesc">
+        這裡整理葉離 / 花祭成員在 1.19.1 原味生存時期的城鎮、建築與回憶卡片。整體版面已調整成與目前首頁、颱風追蹤頁一致的深海藍綠設計系統。
+      </p>
+
+      <div class="heroActions">
+        <a class="actionBtn" href="#whale-town">查看鯨魚鎮</a>
+        <a class="actionBtn ghostBtn" href="../">返回社群首頁</a>
+      </div>
+
+      <div class="summaryCard">
+        <div class="summaryHead">
+          <span class="miniPill"><span class="pillDot"></span>參與成員</span>
+          <h2 class="summaryTitle">1.19.1 原味生存</h2>
+        </div>
+
+        <div class="playerBlock">
+          <p class="playerLabel">玩家</p>
+          <div class="chips">
+            <span class="chip">傑克</span>
+            <span class="chip">徯風</span>
+            <span class="chip">燈燈</span>
+            <span class="chip">維他命</span>
+            <span class="chip">西吸</span>
+            <span class="chip">萊鳥</span>
+            <span class="chip">鈞</span>
+            <span class="chip">孟</span>
+            <span class="chip">魚</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="whale-town">
+      <div class="sectionHead">
+        <div>
+          <div class="sectionKicker"><span class="dot"></span> Whale Town</div>
+          <h2 class="sectionTitle">鯨魚鎮</h2>
+          <p class="sectionDesc">傑克創建的鯨魚鎮，計劃建築一個溫馨小鎮。</p>
+        </div>
+      </div>
+
+      <div class="townIntro">
+        <div class="quoteBox">此區塊可以放城鎮簡介、伺服器版本、代表建築、參與者與照片回憶。</div>
+      </div>
+
+     <!-- 將以下內容放進你原本的 <div class="mem-grid"> 裡面 -->
+
+<div class="mem-grid">
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 1</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/1.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 2</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/2.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 3</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/3.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 4</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/4.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 5</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/5.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 6</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/6.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 7</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/7.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 8</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/8.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 9</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/9.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 10</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/10.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 11</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/11.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 12</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/12.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 13</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/13.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 14</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/14.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 15</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/15.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 16</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/16.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 17</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/17.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 18</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/18.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 19</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/19.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 20</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/20.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 21</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/21.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 22</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/22.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 23</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/23.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 24</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/24.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 25</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/25.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 26</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/26.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 27</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/27.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 28</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/28.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 29</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/29.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 30</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/30.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 31</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/31.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 32</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/32.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 33</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/33.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 34</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/34.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 35</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/35.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 36</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/36.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 37</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/37.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 38</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/38.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 39</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/39.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 40</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/40.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 41</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/41.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 42</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/42.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 43</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/43.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 44</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/44.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 45</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/45.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 46</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/46.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 47</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/47.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 48</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/48.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 49</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/49.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 50</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/50.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 51</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/51.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 52</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/52.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 53</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/53.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 54</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/54.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 55</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/55.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 56</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/56.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 57</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/57.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 58</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/58.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 59</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/59.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 60</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/60.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+
+<article class="mem-card">
+  <div class="mem-head">
+    <span class="mem-pill"><span class="pillDot"></span>待填寫</span>
+    <h3 class="mem-title">建築 61</h3>
+  </div>
+
+  <div class="mem-middle" style="background-image:url('https://raw.githubusercontent.com/ItzSeir/FloestSMP/705dcf0f08d5ce06573c1b30392d1aa1a1285ece/data/1.19.1/61.png');"></div>
+
+  <div class="mem-roles">
+    <div class="role-box">
+      <span class="role-label">建造者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">美化者</span>
+      <span class="role-name empty">—</span>
+    </div>
+
+    <div class="role-box">
+      <span class="role-label">輔助</span>
+      <span class="role-name empty">—</span>
+    </div>
+  </div>
+</article>
+</div>
+      </div>
+    </section>
+
+    <p class="footerNote">FloestSMP 1.19.1 Memory Archive</p>
+  </main>
+
+
+  <div class="image-lightbox" id="imageLightbox" aria-hidden="true" role="dialog" aria-modal="true" aria-label="圖片預覽">
+    <div class="lightbox-topbar">
+      <div class="lightbox-title" id="lightboxTitle">圖片預覽</div>
+      <button class="lightbox-close" id="lightboxClose" type="button" aria-label="關閉圖片預覽">&times;</button>
+    </div>
+
+    <button class="lightbox-nav lightbox-prev" id="lightboxPrev" type="button" aria-label="上一張圖片">&#8249;</button>
+    <img class="lightbox-image" id="lightboxImage" src="" alt="放大圖片">
+    <button class="lightbox-nav lightbox-next" id="lightboxNext" type="button" aria-label="下一張圖片">&#8250;</button>
+
+    <div class="lightbox-actions">
+      <button class="lightbox-download" id="lightboxDownload" type="button">⬇ 下載圖片</button>
+    </div>
+  </div>
+
+  <script>
+    (() => {
+      const imageCards = [...document.querySelectorAll('.mem-middle')];
+      const lightbox = document.getElementById('imageLightbox');
+      const lightboxImage = document.getElementById('lightboxImage');
+      const lightboxTitle = document.getElementById('lightboxTitle');
+      const closeButton = document.getElementById('lightboxClose');
+      const previousButton = document.getElementById('lightboxPrev');
+      const nextButton = document.getElementById('lightboxNext');
+      const downloadButton = document.getElementById('lightboxDownload');
+      let currentIndex = 0;
+
+      function getImageUrl(element) {
+        const backgroundImage = getComputedStyle(element).backgroundImage;
+        const match = backgroundImage.match(/^url\\(["']?(.*?)["']?\\)$/);
+        return match ? match[1] : '';
+      }
+
+      function getImageTitle(element, index) {
+        return element.closest('.mem-card')?.querySelector('.mem-title')?.textContent.trim()
+          || `圖片 ${index + 1}`;
+      }
+
+      function showImage(index) {
+        if (!imageCards.length) return;
+        currentIndex = (index + imageCards.length) % imageCards.length;
+
+        const selectedCard = imageCards[currentIndex];
+        const imageUrl = getImageUrl(selectedCard);
+        const title = getImageTitle(selectedCard, currentIndex);
+
+        lightboxImage.src = imageUrl;
+        lightboxImage.alt = `${title} 放大圖片`;
+        lightboxTitle.textContent = `${title} · ${currentIndex + 1} / ${imageCards.length}`;
+      }
+
+      function openLightbox(index) {
+        showImage(index);
+        lightbox.classList.add('show');
+        lightbox.setAttribute('aria-hidden', 'false');
+        document.body.classList.add('lightbox-open');
+        closeButton.focus();
+      }
+
+      function closeLightbox() {
+        lightbox.classList.remove('show');
+        lightbox.setAttribute('aria-hidden', 'true');
+        document.body.classList.remove('lightbox-open');
+        lightboxImage.removeAttribute('src');
+      }
+
+      imageCards.forEach((card, index) => {
+        card.setAttribute('role', 'button');
+        card.setAttribute('tabindex', '0');
+        card.setAttribute('aria-label', `放大查看${getImageTitle(card, index)}`);
+
+        card.addEventListener('click', () => openLightbox(index));
+        card.addEventListener('keydown', event => {
+          if (event.key === 'Enter' || event.key === ' ') {
+            event.preventDefault();
+            openLightbox(index);
+          }
+        });
+      });
+
+      closeButton.addEventListener('click', closeLightbox);
+      previousButton.addEventListener('click', () => showImage(currentIndex - 1));
+      nextButton.addEventListener('click', () => showImage(currentIndex + 1));
+
+      lightbox.addEventListener('click', event => {
+        if (event.target === lightbox) closeLightbox();
+      });
+
+      document.addEventListener('keydown', event => {
+        if (!lightbox.classList.contains('show')) return;
+
+        if (event.key === 'Escape') closeLightbox();
+        if (event.key === 'ArrowLeft') showImage(currentIndex - 1);
+        if (event.key === 'ArrowRight') showImage(currentIndex + 1);
+      });
+
+      downloadButton.addEventListener('click', async () => {
+        const imageUrl = lightboxImage.src;
+        const title = getImageTitle(imageCards[currentIndex], currentIndex);
+        const extension = imageUrl.split('.').pop().split(/[?#]/)[0] || 'png';
+        const safeFileName = title.replace(/[\\/:*?"<>|]/g, '_');
+
+        downloadButton.disabled = true;
+        downloadButton.textContent = '下載中…';
+
+        try {
+          const response = await fetch(imageUrl);
+          if (!response.ok) throw new Error('圖片下載失敗');
+
+          const blob = await response.blob();
+          const blobUrl = URL.createObjectURL(blob);
+          const link = document.createElement('a');
+          link.href = blobUrl;
+          link.download = `${safeFileName}.${extension}`;
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+          URL.revokeObjectURL(blobUrl);
+        } catch (error) {
+          const link = document.createElement('a');
+          link.href = imageUrl;
+          link.target = '_blank';
+          link.rel = 'noopener';
+          document.body.appendChild(link);
+          link.click();
+          link.remove();
+        } finally {
+          downloadButton.disabled = false;
+          downloadButton.textContent = '⬇ 下載圖片';
+        }
+      });
+    })();
+  </script>
+
+</body>
+</html>
