@@ -939,7 +939,57 @@
 
       .docTitle{ font-size:27px; }
     }
-  </style>
+  
+/* ===== Unified Scrollbar ===== */
+html{
+scrollbar-width:thin;
+scrollbar-color:#6f8793 #dce7ec;
+scrollbar-gutter:stable;
+}
+html[data-theme="dark"]{
+scrollbar-color:#778097 #11182b;
+}
+body,.sidebar,.content,.toc,.searchResults{
+scrollbar-width:thin;
+scrollbar-color:inherit;
+}
+html::-webkit-scrollbar,
+body::-webkit-scrollbar,
+.sidebar::-webkit-scrollbar,
+.content::-webkit-scrollbar,
+.toc::-webkit-scrollbar,
+.searchResults::-webkit-scrollbar{width:11px;height:11px;}
+html::-webkit-scrollbar-track,
+body::-webkit-scrollbar-track,
+.sidebar::-webkit-scrollbar-track,
+.content::-webkit-scrollbar-track,
+.toc::-webkit-scrollbar-track,
+.searchResults::-webkit-scrollbar-track{
+background:#dce7ec;border-radius:999px;}
+html[data-theme="dark"]::-webkit-scrollbar-track,
+html[data-theme="dark"] body::-webkit-scrollbar-track,
+html[data-theme="dark"] .sidebar::-webkit-scrollbar-track,
+html[data-theme="dark"] .content::-webkit-scrollbar-track,
+html[data-theme="dark"] .toc::-webkit-scrollbar-track,
+html[data-theme="dark"] .searchResults::-webkit-scrollbar-track{
+background:#11182b;}
+html::-webkit-scrollbar-thumb,
+body::-webkit-scrollbar-thumb,
+.sidebar::-webkit-scrollbar-thumb,
+.content::-webkit-scrollbar-thumb,
+.toc::-webkit-scrollbar-thumb,
+.searchResults::-webkit-scrollbar-thumb{
+border:3px solid transparent;border-radius:999px;
+background:linear-gradient(180deg,#7d98a4,#587480) padding-box;}
+html[data-theme="dark"]::-webkit-scrollbar-thumb,
+html[data-theme="dark"] body::-webkit-scrollbar-thumb,
+html[data-theme="dark"] .sidebar::-webkit-scrollbar-thumb,
+html[data-theme="dark"] .content::-webkit-scrollbar-thumb,
+html[data-theme="dark"] .toc::-webkit-scrollbar-thumb,
+html[data-theme="dark"] .searchResults::-webkit-scrollbar-thumb{
+background:linear-gradient(180deg,#9299ad,#687086) padding-box;}
+
+</style>
 </head>
 
 <body>
