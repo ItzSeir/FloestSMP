@@ -1271,6 +1271,98 @@
       .slideNav.prev{ left:10px; }
       .slideNav.next{ right:10px; }
     }
+  
+    /* =========================================================
+       統一自訂 Scrollbar
+       適用：整頁、手機導覽列及所有可捲動區域
+       ========================================================= */
+
+    html{
+      color-scheme:light;
+      scrollbar-width:thin;
+      scrollbar-color:#6f8793 #dce7ec;
+      scrollbar-gutter:stable;
+    }
+
+    body,
+    .navPills{
+      scrollbar-width:thin;
+      scrollbar-color:#6f8793 #dce7ec;
+    }
+
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar,
+    .navPills::-webkit-scrollbar{
+      width:11px;
+      height:11px;
+    }
+
+    html::-webkit-scrollbar-track,
+    body::-webkit-scrollbar-track,
+    .navPills::-webkit-scrollbar-track{
+      background:#dce7ec;
+      border-radius:999px;
+      box-shadow:
+        inset 0 0 0 1px rgba(15,76,92,.06),
+        inset 0 0 10px rgba(31,53,72,.05);
+    }
+
+    html::-webkit-scrollbar-thumb,
+    body::-webkit-scrollbar-thumb,
+    .navPills::-webkit-scrollbar-thumb{
+      min-height:46px;
+      border:3px solid transparent;
+      border-radius:999px;
+      background:
+        linear-gradient(
+          180deg,
+          #7d98a4,
+          #587480
+        ) padding-box;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.34),
+        0 2px 8px rgba(31,53,72,.16);
+    }
+
+    html::-webkit-scrollbar-thumb:hover,
+    body::-webkit-scrollbar-thumb:hover,
+    .navPills::-webkit-scrollbar-thumb:hover{
+      background:
+        linear-gradient(
+          180deg,
+          #6d8b98,
+          #486773
+        ) padding-box;
+    }
+
+    html::-webkit-scrollbar-thumb:active,
+    body::-webkit-scrollbar-thumb:active,
+    .navPills::-webkit-scrollbar-thumb:active{
+      background:
+        linear-gradient(
+          180deg,
+          #557681,
+          #385763
+        ) padding-box;
+    }
+
+    html::-webkit-scrollbar-corner,
+    body::-webkit-scrollbar-corner,
+    .navPills::-webkit-scrollbar-corner{
+      background:transparent;
+    }
+
+    /* 手機版導覽列維持可左右滑動，但隱藏橫向 scrollbar */
+    @media (max-width:780px){
+      .navPills{
+        scrollbar-width:none;
+      }
+
+      .navPills::-webkit-scrollbar{
+        display:none;
+      }
+    }
+
   </style>
 </head>
 
