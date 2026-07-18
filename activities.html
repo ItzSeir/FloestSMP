@@ -797,7 +797,26 @@
         grid-template-columns:1fr;
       }
     }
-  </style>
+  
+/* ===== Unified Light Scrollbar ===== */
+html{
+ color-scheme:light;
+ scrollbar-width:thin;
+ scrollbar-color:#6f8793 #dce7ec;
+ scrollbar-gutter:stable;
+}
+body,.navPills,.eventTableWrap{
+ scrollbar-width:thin;
+ scrollbar-color:#6f8793 #dce7ec;
+}
+html::-webkit-scrollbar,body::-webkit-scrollbar,.navPills::-webkit-scrollbar,.eventTableWrap::-webkit-scrollbar{width:11px;height:11px;}
+html::-webkit-scrollbar-track,body::-webkit-scrollbar-track,.navPills::-webkit-scrollbar-track,.eventTableWrap::-webkit-scrollbar-track{background:#dce7ec;border-radius:999px;}
+html::-webkit-scrollbar-thumb,body::-webkit-scrollbar-thumb,.navPills::-webkit-scrollbar-thumb,.eventTableWrap::-webkit-scrollbar-thumb{
+border:3px solid transparent;border-radius:999px;background:linear-gradient(180deg,#7d98a4,#587480) padding-box;min-height:46px;}
+html::-webkit-scrollbar-thumb:hover,body::-webkit-scrollbar-thumb:hover,.eventTableWrap::-webkit-scrollbar-thumb:hover{background:linear-gradient(180deg,#6d8b98,#486773) padding-box;}
+@media(max-width:780px){.navPills{scrollbar-width:none}.navPills::-webkit-scrollbar{display:none}}
+
+</style>
 </head>
 
 <body>
