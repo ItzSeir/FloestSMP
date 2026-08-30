@@ -160,6 +160,107 @@
       background:linear-gradient(135deg, rgba(15,76,92,.10), rgba(42,157,143,.12));
     }
 
+
+    /* Minecraft version dropdown */
+    .navDropdown{
+      position:relative;
+      display:inline-flex;
+      align-items:center;
+    }
+
+    .navDropdownToggle{
+      display:inline-flex;
+      align-items:center;
+      gap:6px;
+      border:0;
+      cursor:pointer;
+      text-decoration:none;
+      color:#264052;
+      font-size:12px;
+      font-weight:900;
+      padding:9px 12px;
+      border-radius:999px;
+      background:transparent;
+      transition:.18s ease;
+    }
+
+    .navDropdownToggle::after{
+      content:"";
+      width:6px;
+      height:6px;
+      margin-left:1px;
+      border-right:1.8px solid currentColor;
+      border-bottom:1.8px solid currentColor;
+      transform:rotate(45deg) translateY(-1px);
+      transform-origin:center;
+      transition:transform .18s ease;
+      opacity:.78;
+    }
+
+    .navDropdown:hover .navDropdownToggle,
+    .navDropdown:focus-within .navDropdownToggle,
+    .navDropdown.active .navDropdownToggle{
+      color:var(--sea);
+      background:linear-gradient(135deg, rgba(15,76,92,.10), rgba(42,157,143,.12));
+    }
+
+    .navDropdown:hover .navDropdownToggle::after,
+    .navDropdown:focus-within .navDropdownToggle::after,
+    .navDropdown.open .navDropdownToggle::after{
+      transform:rotate(225deg) translate(-1px,-1px);
+    }
+
+    .navDropdownMenu{
+      position:absolute;
+      top:calc(100% + 10px);
+      left:50%;
+      min-width:170px;
+      padding:8px;
+      border:1px solid var(--line);
+      border-radius:18px;
+      background:rgba(255,255,255,.96);
+      backdrop-filter:blur(18px);
+      box-shadow:0 16px 36px rgba(31,53,72,.14);
+      opacity:0;
+      visibility:hidden;
+      transform:translate(-50%, -6px);
+      transition:opacity .16s ease, transform .16s ease, visibility .16s ease;
+      z-index:120;
+    }
+
+    .navDropdown:hover .navDropdownMenu,
+    .navDropdown:focus-within .navDropdownMenu,
+    .navDropdown.open .navDropdownMenu{
+      opacity:1;
+      visibility:visible;
+      transform:translate(-50%, 0);
+    }
+
+    .navDropdownMenu a{
+      display:flex;
+      align-items:center;
+      justify-content:space-between;
+      width:100%;
+      padding:10px 12px;
+      border-radius:12px;
+      color:#264052;
+      text-decoration:none;
+      font-size:12px;
+      font-weight:900;
+      white-space:nowrap;
+    }
+
+    .navDropdownMenu a:hover{
+      color:var(--sea);
+      background:rgba(15,76,92,.07);
+    }
+
+    .navDropdownMenu .versionTag{
+      color:var(--muted);
+      font-size:10px;
+      font-weight:800;
+    }
+
     .hero{
       display:grid;
       grid-template-columns:minmax(0, 1.08fr) minmax(320px, .92fr);
@@ -1025,6 +1126,23 @@
         padding-bottom:2px;
       }
 
+      .navDropdown{ flex:0 0 auto; }
+
+      .navDropdownMenu{
+        position:fixed;
+        top:auto;
+        left:14px;
+        right:14px;
+        transform:translateY(-6px);
+        min-width:0;
+      }
+
+      .navDropdown:hover .navDropdownMenu,
+      .navDropdown:focus-within .navDropdownMenu,
+      .navDropdown.open .navDropdownMenu{
+        transform:translateY(0);
+      }
+
       .navPills a{ flex:0 0 auto; }
 
       .heroCard,
@@ -1148,11 +1266,18 @@ display:none;
       </a>
 
       <nav class="navPills" aria-label="主選單">
-        <a href="https://itzseir.github.io/floestsmp">首頁</a>
-        <a href="activities">往期活動</a>
-        <a class="active" href="index.html">麥塊</a>
-        <a href="other">其他</a>
-        <a href="information">資訊</a>
+        <a href="https://itzseir.github.io/FloestSMP">首頁</a>
+        <a href="https://itzseir.github.io/FloestSMP/activities">往期活動</a>
+        <div class="navDropdown active" id="minecraftDropdown">
+          <button class="navDropdownToggle" type="button" aria-haspopup="true" aria-expanded="false">麥塊</button>
+          <div class="navDropdownMenu" role="menu">
+            <a href="index.html" role="menuitem"><span>麥塊首頁</span><span class="versionTag">Hub</span></a>
+            <a href="1.19.1" role="menuitem"><span>1.19.1</span><span class="versionTag">原味生存</span></a>
+            <a href="1.16.5" role="menuitem"><span>1.16.5</span><span class="versionTag">原味生存</span></a>
+          </div>
+        </div>
+        <a href="https://itzseir.github.io/FloestSMP/other">其他</a>
+        <a href="https://itzseir.github.io/FloestSMP/information">資訊</a>
       </nav>
     </header>
 
@@ -1469,5 +1594,34 @@ display:none;
 
     <p class="footerNote">FloestSMP Minecraft Memory Hub</p>
   </main>
+
+  <script>
+    (() => {
+      const dropdown = document.getElementById('minecraftDropdown');
+      if (!dropdown) return;
+      const toggle = dropdown.querySelector('.navDropdownToggle');
+
+      toggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = dropdown.classList.toggle('open');
+        toggle.setAttribute('aria-expanded', String(isOpen));
+      });
+
+      document.addEventListener('click', (e) => {
+        if (!dropdown.contains(e.target)) {
+          dropdown.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+        }
+      });
+
+      document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') {
+          dropdown.classList.remove('open');
+          toggle.setAttribute('aria-expanded', 'false');
+          toggle.focus();
+        }
+      });
+    })();
+  </script>
 </body>
 </html>
