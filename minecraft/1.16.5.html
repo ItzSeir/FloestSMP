@@ -894,6 +894,132 @@ background:linear-gradient(180deg,#6d8b98,#486773) padding-box;
 .navPills::-webkit-scrollbar{display:none;}
 }
 
+
+/* ===== Minecraft Dropdown Navigation ===== */
+.navDropdown{
+  position:relative;
+  flex:0 0 auto;
+}
+
+.navDropdownBtn{
+  display:flex;
+  align-items:center;
+  gap:7px;
+  border:0;
+  padding:9px 12px;
+  border-radius:999px;
+  color:#264052;
+  background:transparent;
+  font-size:12px;
+  font-weight:900;
+  cursor:pointer;
+  transition:.18s ease;
+}
+
+.navDropdownBtn:hover,
+.navDropdown.open .navDropdownBtn,
+.navDropdown.active .navDropdownBtn{
+  color:var(--sea);
+  background:linear-gradient(135deg, rgba(15,76,92,.10), rgba(42,157,143,.12));
+}
+
+.navChevron{
+  width:7px;
+  height:7px;
+  margin-top:-3px;
+  border-right:1.8px solid currentColor;
+  border-bottom:1.8px solid currentColor;
+  transform:rotate(45deg);
+  transition:transform .18s ease, margin-top .18s ease;
+}
+
+.navDropdown.open .navChevron{
+  margin-top:3px;
+  transform:rotate(225deg);
+}
+
+.navDropdownMenu{
+  position:absolute;
+  top:calc(100% + 9px);
+  left:50%;
+  z-index:100;
+  min-width:190px;
+  padding:7px;
+  border:1px solid var(--line);
+  border-radius:18px;
+  background:rgba(255,255,255,.96);
+  -webkit-backdrop-filter:blur(18px);
+  backdrop-filter:blur(18px);
+  box-shadow:0 18px 45px rgba(31,53,72,.14);
+  opacity:0;
+  visibility:hidden;
+  pointer-events:none;
+  transform:translate(-50%, -5px);
+  transition:opacity .16s ease, visibility .16s ease, transform .16s ease;
+}
+
+.navDropdownMenu::before{
+  content:"";
+  position:absolute;
+  left:0;
+  right:0;
+  top:-10px;
+  height:10px;
+}
+
+.navDropdownMenu a{
+  display:block;
+  width:100%;
+  padding:10px 12px;
+  border-radius:12px;
+  color:#264052;
+  text-decoration:none;
+  font-size:12px;
+  font-weight:850;
+  white-space:nowrap;
+}
+
+.navDropdownMenu a:hover,
+.navDropdownMenu a.active{
+  color:var(--sea);
+  background:rgba(15,76,92,.075);
+}
+
+.navDropdown.open .navDropdownMenu{
+  opacity:1;
+  visibility:visible;
+  pointer-events:auto;
+  transform:translate(-50%, 0);
+}
+
+@media (hover:hover) and (pointer:fine){
+  .navDropdown:hover .navDropdownMenu{
+    opacity:1;
+    visibility:visible;
+    pointer-events:auto;
+    transform:translate(-50%, 0);
+  }
+}
+
+@media (max-width:780px){
+  .navDropdown{
+    position:relative;
+  }
+
+  .navDropdownBtn{
+    white-space:nowrap;
+  }
+
+  .navDropdownMenu{
+    left:0;
+    transform:translateY(-5px);
+  }
+
+  .navDropdown.open .navDropdownMenu{
+    transform:translateY(0);
+  }
+}
+
 </style>
 </head>
 
@@ -909,11 +1035,24 @@ background:linear-gradient(180deg,#6d8b98,#486773) padding-box;
       </a>
 
       <nav class="navPills" aria-label="主選單">
-        <a href="https://itzseir.github.io/ItzSeir/floestsmp">首頁</a>
-        <a href="activities">往期活動</a>
-        <a class="active" href="1.16.5.html">麥塊</a>
-        <a href="other">其他</a>
-        <a href="information">資訊</a>
+        <a href="https://itzseir.github.io/FloestSMP/">首頁</a>
+        <a href="https://itzseir.github.io/FloestSMP/activities">往期活動</a>
+
+        <div class="navDropdown active">
+          <button class="navDropdownBtn" type="button" aria-expanded="false" aria-haspopup="true">
+            麥塊
+            <span class="navChevron" aria-hidden="true"></span>
+          </button>
+
+          <div class="navDropdownMenu">
+            <a href="https://itzseir.github.io/FloestSMP/minecraft/">麥塊首頁</a>
+            <a href="https://itzseir.github.io/FloestSMP/minecraft/1.19.1">1.19.1 原味生存</a>
+            <a class="active" href="https://itzseir.github.io/FloestSMP/minecraft/1.16.5">1.16.5 原味生存</a>
+          </div>
+        </div>
+
+        <a href="https://itzseir.github.io/FloestSMP/other">其他</a>
+        <a href="https://itzseir.github.io/FloestSMP/information">資訊</a>
       </nav>
     </header>
 
@@ -2014,6 +2153,45 @@ background:linear-gradient(180deg,#6d8b98,#486773) padding-box;
 });
     })();
   </script>
+
+
+<script>
+document.querySelectorAll('.navDropdown').forEach(dropdown => {
+  const button = dropdown.querySelector('.navDropdownBtn');
+
+  button.addEventListener('click', event => {
+    event.stopPropagation();
+
+    document.querySelectorAll('.navDropdown.open').forEach(item => {
+      if(item !== dropdown){
+        item.classList.remove('open');
+        item.querySelector('.navDropdownBtn')?.setAttribute('aria-expanded', 'false');
+      }
+    });
+
+    const isOpen = dropdown.classList.toggle('open');
+    button.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+  });
+});
+
+document.addEventListener('click', event => {
+  document.querySelectorAll('.navDropdown.open').forEach(dropdown => {
+    if(!dropdown.contains(event.target)){
+      dropdown.classList.remove('open');
+      dropdown.querySelector('.navDropdownBtn')?.setAttribute('aria-expanded', 'false');
+    }
+  });
+});
+
+document.addEventListener('keydown', event => {
+  if(event.key === 'Escape'){
+    document.querySelectorAll('.navDropdown.open').forEach(dropdown => {
+      dropdown.classList.remove('open');
+      dropdown.querySelector('.navDropdownBtn')?.setAttribute('aria-expanded', 'false');
+    });
+  }
+});
+</script>
 
 </body>
 </html>
