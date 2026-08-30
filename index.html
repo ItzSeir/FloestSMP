@@ -1,11 +1,10 @@
 <!doctype html>
 <html lang="zh-Hant">
 <head>
-  <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>葉離社群｜麥塊</title>
-  <link rel="icon" type="image/png" href="Profile Pitcure/葉離.png">
-
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>葉離｜社群首頁</title>
+  <link rel="icon" type="image/png" href="data/葉離.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -28,6 +27,7 @@
       --ice:#7bdff2;
       --warm:#f4a261;
       --danger:#d62828;
+      --discord:#5865f2;
       --shadow:0 18px 50px rgba(31,53,72,.12);
       --shadow-soft:0 10px 30px rgba(31,53,72,.08);
       --radius:28px;
@@ -36,7 +36,10 @@
     }
 
     *{ box-sizing:border-box; }
-    html{ scroll-behavior:smooth; }
+
+    html{
+      scroll-behavior:smooth;
+    }
 
     body{
       margin:0;
@@ -89,7 +92,11 @@
       box-shadow:0 10px 30px rgba(31,53,72,.08);
     }
 
-    .brand{
+/* =========================
+   LOGO / PROFILE ICON AREA
+========================= */
+
+.brand{
       display:flex;
       align-items:center;
       gap:10px;
@@ -136,6 +143,27 @@
       font-weight:800;
       white-space:nowrap;
     }
+/* Compact navbar sizing */
+@media (max-width:780px){
+    .brandMark{
+        width:36px;
+        height:36px;
+        flex-basis:36px;
+    }
+
+    .brandText strong{
+        font-size:14px;
+    }
+
+    .brandText span{
+        font-size:11px;
+    }
+
+    .topbar{
+        padding:12px 14px;
+    }
+}
+
     .navPills{
       display:flex;
       align-items:center;
@@ -160,117 +188,16 @@
       background:linear-gradient(135deg, rgba(15,76,92,.10), rgba(42,157,143,.12));
     }
 
-
-    /* Minecraft version dropdown */
-    .navDropdown{
-      position:relative;
-      display:inline-flex;
-      align-items:center;
-    }
-
-    .navDropdownToggle{
-      display:inline-flex;
-      align-items:center;
-      gap:6px;
-      border:0;
-      cursor:pointer;
-      text-decoration:none;
-      color:#264052;
-      font-size:12px;
-      font-weight:900;
-      padding:9px 12px;
-      border-radius:999px;
-      background:transparent;
-      transition:.18s ease;
-    }
-
-    .navDropdownToggle::after{
-      content:"";
-      width:6px;
-      height:6px;
-      margin-left:1px;
-      border-right:1.8px solid currentColor;
-      border-bottom:1.8px solid currentColor;
-      transform:rotate(45deg) translateY(-1px);
-      transform-origin:center;
-      transition:transform .18s ease;
-      opacity:.78;
-    }
-
-    .navDropdown:hover .navDropdownToggle,
-    .navDropdown:focus-within .navDropdownToggle,
-    .navDropdown.active .navDropdownToggle{
-      color:var(--sea);
-      background:linear-gradient(135deg, rgba(15,76,92,.10), rgba(42,157,143,.12));
-    }
-
-    .navDropdown:hover .navDropdownToggle::after,
-    .navDropdown:focus-within .navDropdownToggle::after,
-    .navDropdown.open .navDropdownToggle::after{
-      transform:rotate(225deg) translate(-1px,-1px);
-    }
-
-    .navDropdownMenu{
-      position:absolute;
-      top:calc(100% + 10px);
-      left:50%;
-      min-width:170px;
-      padding:8px;
-      border:1px solid var(--line);
-      border-radius:18px;
-      background:rgba(255,255,255,.96);
-      backdrop-filter:blur(18px);
-      box-shadow:0 16px 36px rgba(31,53,72,.14);
-      opacity:0;
-      visibility:hidden;
-      transform:translate(-50%, -6px);
-      transition:opacity .16s ease, transform .16s ease, visibility .16s ease;
-      z-index:120;
-    }
-
-    .navDropdown:hover .navDropdownMenu,
-    .navDropdown:focus-within .navDropdownMenu,
-    .navDropdown.open .navDropdownMenu{
-      opacity:1;
-      visibility:visible;
-      transform:translate(-50%, 0);
-    }
-
-    .navDropdownMenu a{
-      display:flex;
-      align-items:center;
-      justify-content:space-between;
-      width:100%;
-      padding:10px 12px;
-      border-radius:12px;
-      color:#264052;
-      text-decoration:none;
-      font-size:12px;
-      font-weight:900;
-      white-space:nowrap;
-    }
-
-    .navDropdownMenu a:hover{
-      color:var(--sea);
-      background:rgba(15,76,92,.07);
-    }
-
-    .navDropdownMenu .versionTag{
-      color:var(--muted);
-      font-size:10px;
-      font-weight:800;
-    }
-
     .hero{
       display:grid;
-      grid-template-columns:minmax(0, 1.08fr) minmax(320px, .92fr);
+      grid-template-columns:minmax(0, 1.18fr) minmax(300px, .82fr);
       gap:22px;
       align-items:stretch;
       margin-bottom:22px;
     }
 
     .heroCard,
-    .summaryPanel{
+    .quickCard{
       border:1px solid var(--line);
       border-radius:32px;
       background:rgba(255,255,255,.78);
@@ -281,7 +208,7 @@
 
     .heroCard{
       position:relative;
-      min-height:360px;
+      min-height:340px;
       padding:34px;
       background:
         linear-gradient(135deg, rgba(255,255,255,.98), rgba(236,245,246,.90)),
@@ -313,7 +240,6 @@
       background:rgba(15,76,92,.08);
       font-size:12px;
       font-weight:900;
-      white-space:nowrap;
     }
 
     .dot{
@@ -325,37 +251,11 @@
       flex:0 0 auto;
     }
 
-    .pillDot{
-      width:5px;
-      height:5px;
-      border-radius:999px;
-      background:#c97920;
-      box-shadow:0 0 0 4px rgba(244,162,97,.13);
-      flex:0 0 auto;
-    }
-
-    .miniPill{
-      display:inline-flex;
-      align-items:center;
-      gap:7px;
-      width:max-content;
-      max-width:100%;
-      padding:7px 12px;
-      border-radius:999px;
-      color:#9a5a12;
-      background:linear-gradient(135deg, rgba(244,162,97,.18), rgba(255,239,221,.92));
-      border:1px solid rgba(244,162,97,.22);
-      box-shadow:0 8px 18px rgba(244,162,97,.10);
-      font-size:12px;
-      font-weight:900;
-      white-space:nowrap;
-    }
-
     .heroTitle{
       position:relative;
       z-index:1;
       margin:24px 0 18px;
-      font-size:clamp(40px, 5vw, 68px);
+      font-size:clamp(38px, 5vw, 66px);
       line-height:1.12;
       letter-spacing:-.045em;
       font-weight:900;
@@ -373,7 +273,7 @@
     .heroDesc{
       position:relative;
       z-index:1;
-      max-width:720px;
+      max-width:690px;
       margin:0;
       color:#5e717d;
       line-height:1.85;
@@ -420,57 +320,45 @@
       box-shadow:0 10px 22px rgba(31,53,72,.07);
     }
 
-    .summaryPanel{
+    .quickCard{
       padding:20px;
       display:flex;
       flex-direction:column;
       gap:14px;
     }
 
-    .summaryImg{
-      min-height:172px;
-      border-radius:24px;
-      border:1px solid var(--line);
-      background:
-        linear-gradient(180deg, rgba(15,76,92,.12), rgba(42,157,143,.16)),
-        url("../pitcure/1.16.5/1.png") center / cover no-repeat;
-      box-shadow:inset 0 0 0 1px rgba(255,255,255,.16);
-      overflow:hidden;
-    }
-
-    .summaryTitle{
+    .quickTitle{
       margin:0;
       color:var(--heading);
-      font-size:22px;
-      line-height:1.2;
-      letter-spacing:-.035em;
+      font-size:18px;
       font-weight:900;
+      letter-spacing:-.03em;
     }
 
-    .summaryText{
+    .quickText{
       margin:0;
       color:var(--muted);
       font-size:13px;
-      line-height:1.75;
       font-weight:650;
+      line-height:1.75;
     }
 
-    .statGrid{
+    .quickGrid{
       display:grid;
       grid-template-columns:1fr 1fr;
       gap:10px;
       margin-top:auto;
     }
 
-    .statBox{
-      min-height:82px;
+    .quickStat{
+      min-height:84px;
       padding:14px;
       border:1px solid var(--line);
       border-radius:20px;
       background:#fff;
     }
 
-    .statNum{
+    .quickNum{
       color:var(--heading);
       font-size:24px;
       font-weight:900;
@@ -478,7 +366,7 @@
       letter-spacing:-.04em;
     }
 
-    .statLabel{
+    .quickLabel{
       margin-top:8px;
       color:var(--muted);
       font-size:12px;
@@ -538,302 +426,57 @@
       font-weight:650;
     }
 
-    .portalGrid{
+    .introGrid{
       display:grid;
-      grid-template-columns:repeat(3, minmax(0, 1fr));
-      gap:16px;
+      grid-template-columns:minmax(0, 1fr) 320px;
+      gap:18px;
       padding:20px;
+      align-items:start;
     }
 
-    .portalCard{
+    .introMain{
+      min-width:0;
+    }
+
+    .quoteBox{
       position:relative;
-      min-height:260px;
-      display:flex;
-      flex-direction:column;
-      justify-content:flex-end;
-      padding:18px;
-      border-radius:26px;
-      border:1px solid var(--line);
-      overflow:hidden;
-      text-decoration:none;
-      background:#fff;
-      box-shadow:var(--shadow-soft);
-      transition:transform .18s ease, box-shadow .18s ease, border-color .18s ease;
-    }
-
-    .portalCard:hover{
-      transform:translateY(-4px);
-      border-color:rgba(15,76,92,.20);
-      box-shadow:var(--shadow);
-    }
-
-    .portalCard::before{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:var(--portal-img) center / cover no-repeat;
-      transform:scale(1.03);
-      transition:transform .35s ease;
-    }
-
-    .portalCard:hover::before{
-      transform:scale(1.08);
-    }
-
-    .portalCard::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(180deg, rgba(8,22,30,.02) 0%, rgba(8,22,30,.26) 42%, rgba(8,22,30,.78) 100%);
-    }
-
-    .portalContent{
-      position:relative;
-      z-index:1;
-      color:#fff;
-    }
-
-    .portalMeta{
-      display:flex;
-      align-items:center;
-      gap:8px;
-      flex-wrap:wrap;
-      margin-bottom:10px;
-    }
-
-    .portalBadge{
-      display:inline-flex;
-      align-items:center;
-      min-height:28px;
-      padding:0 10px;
-      border-radius:999px;
-      color:#0f4c5c;
-      background:rgba(255,255,255,.9);
-      font-size:11px;
-      font-weight:900;
-      white-space:nowrap;
-    }
-
-    .portalStatus{
-      display:inline-flex;
-      align-items:center;
-      min-height:28px;
-      padding:0 10px;
-      border-radius:999px;
-      color:#fff;
-      background:rgba(42,157,143,.72);
-      border:1px solid rgba(255,255,255,.22);
-      backdrop-filter:blur(8px);
-      font-size:11px;
-      font-weight:900;
-      white-space:nowrap;
-    }
-
-    .portalCard.locked{
-      cursor:not-allowed;
-    }
-
-    .portalCard.locked .portalStatus{
-      background:rgba(106,125,137,.72);
-    }
-
-    .portalTitle{
-      margin:0;
-      font-size:28px;
-      line-height:1.1;
-      letter-spacing:-.04em;
-      font-weight:900;
-      text-shadow:0 8px 18px rgba(0,0,0,.24);
-    }
-
-    .portalDesc{
-      margin:10px 0 0;
-      max-width:420px;
-      font-size:13px;
-      line-height:1.6;
-      font-weight:650;
-      opacity:.92;
-    }
-
-    .infoGrid{
-      display:grid;
-      grid-template-columns:repeat(3, minmax(0, 1fr));
-      gap:16px;
-      padding:20px;
-    }
-
-    .infoCard{
-      min-height:160px;
-      padding:18px;
+      padding:20px 20px 20px 26px;
+      margin-bottom:18px;
+      color:#536b77;
+      font-size:14px;
+      line-height:1.9;
+      font-weight:700;
       border-radius:24px;
+      background:#fff;
       border:1px solid var(--line);
-      background:rgba(255,255,255,.82);
-      box-shadow:var(--shadow-soft);
+      box-shadow:0 10px 24px rgba(31,53,72,.06);
     }
 
-    .infoIcon{
-      width:38px;
-      height:38px;
-      display:grid;
-      place-items:center;
-      border-radius:16px;
-      background:linear-gradient(135deg, rgba(15,76,92,.12), rgba(42,157,143,.12));
-      color:var(--sea);
-      font-weight:900;
-      margin-bottom:14px;
-    }
-
-    .infoCard h3{
-      margin:0 0 8px;
-      color:var(--heading);
-      font-size:17px;
-      line-height:1.25;
-      font-weight:900;
-      letter-spacing:-.02em;
-    }
-
-    .infoCard p{
-      margin:0;
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.75;
-      font-weight:650;
-    }
-
-    .downloadPanel{
-      padding:20px;
-    }
-
-    .downloadHero{
-      display:grid;
-      grid-template-columns:minmax(0, .95fr) minmax(0, 1.05fr);
-      gap:16px;
-      align-items:stretch;
-      margin-bottom:16px;
-    }
-
-    .downloadSummary,
-    .downloadNotice{
-      min-height:150px;
-      padding:18px;
-      border-radius:24px;
-      border:1px solid var(--line);
-      background:rgba(255,255,255,.84);
-      box-shadow:var(--shadow-soft);
-    }
-
-    .downloadSummary{
-      position:relative;
-      overflow:hidden;
-      background:
-        linear-gradient(135deg, rgba(255,255,255,.94), rgba(237,247,247,.84)),
-        radial-gradient(circle at 88% 20%, rgba(42,157,143,.15), transparent 34%);
-    }
-
-    .downloadSummary::after{
+    .quoteBox::before{
       content:"";
       position:absolute;
-      right:-48px;
-      bottom:-58px;
-      width:150px;
-      height:150px;
-      border-radius:50%;
-      border:26px solid rgba(15,76,92,.06);
-      pointer-events:none;
+      left:14px;
+      top:18px;
+      bottom:18px;
+      width:4px;
+      border-radius:999px;
+      background:linear-gradient(180deg, var(--sea), var(--teal));
     }
 
-    .downloadTitle{
-      position:relative;
-      z-index:1;
-      margin:12px 0 8px;
-      color:var(--heading);
-      font-size:26px;
-      line-height:1.18;
-      letter-spacing:-.04em;
-      font-weight:900;
-    }
-
-    .downloadText{
-      position:relative;
-      z-index:1;
-      margin:0;
-      color:var(--muted);
-      font-size:13px;
-      line-height:1.75;
-      font-weight:650;
-    }
-
-    .downloadStats{
+    .founderGrid{
       display:grid;
-      grid-template-columns:1fr 1fr;
-      gap:10px;
-      margin-top:16px;
+      grid-template-columns:repeat(2, minmax(0, 1fr));
+      gap:16px;
+    }
+
+    .founderCard{
       position:relative;
-      z-index:1;
-    }
-
-    .downloadStat{
-      min-height:74px;
-      padding:13px;
-      border-radius:18px;
-      border:1px solid var(--line);
-      background:#fff;
-    }
-
-    .downloadStat strong{
-      display:block;
-      color:var(--heading);
-      font-size:22px;
-      line-height:1;
-      letter-spacing:-.04em;
-      font-weight:900;
-    }
-
-    .downloadStat span{
-      display:block;
-      margin-top:8px;
-      color:var(--muted);
-      font-size:12px;
-      font-weight:900;
-    }
-
-    .downloadNotice{
-      display:flex;
-      flex-direction:column;
-      justify-content:space-between;
+      min-height:210px;
+      display:grid;
+      grid-template-columns:118px minmax(0, 1fr);
       gap:14px;
-    }
-
-    .noticeList{
-      display:grid;
-      gap:10px;
-      margin:0;
-      padding:0;
-      list-style:none;
-    }
-
-    .noticeList li{
-      display:flex;
-      gap:10px;
-      align-items:flex-start;
-      color:#5f7480;
-      font-size:13px;
-      line-height:1.65;
-      font-weight:750;
-    }
-
-    .noticeList li::before{
-      content:"";
-      width:8px;
-      height:8px;
-      margin-top:7px;
-      border-radius:999px;
-      background:var(--teal);
-      box-shadow:0 0 0 5px rgba(42,157,143,.10);
-      flex:0 0 auto;
-    }
-
-    .mapTableWrap{
+      align-items:center;
+      padding:16px;
       border:1px solid var(--line);
       border-radius:24px;
       background:rgba(255,255,255,.88);
@@ -841,268 +484,652 @@
       overflow:hidden;
     }
 
-    .mapTableScroll{
-      width:100%;
-      overflow-x:auto;
-      overscroll-behavior-x:contain;
+    .founderCard::after{
+      content:"";
+      position:absolute;
+      right:-58px;
+      bottom:-72px;
+      width:160px;
+      height:160px;
+      border-radius:50%;
+      background:rgba(42,157,143,.08);
+      pointer-events:none;
     }
 
-    .mapTableScroll::-webkit-scrollbar{ height:10px; }
-    .mapTableScroll::-webkit-scrollbar-thumb{
-      background:rgba(15,76,92,.20);
-      border-radius:999px;
-      border:3px solid rgba(255,255,255,.8);
-    }
-
-    .mapTable{
-      width:100%;
-      min-width:820px;
-      border-collapse:collapse;
-    }
-
-    .mapTable thead tr{
+    .skinBox{
+      height:170px;
+      display:grid;
+      place-items:center;
+      border-radius:22px;
       background:
-        linear-gradient(135deg, rgba(15,76,92,.06), rgba(42,157,143,.055)),
-        rgba(255,255,255,.86);
+        radial-gradient(circle at 50% 18%, rgba(123,223,242,.22), transparent 42%),
+        linear-gradient(180deg, rgba(15,76,92,.055), rgba(42,157,143,.065));
+      overflow:hidden;
     }
 
-    .mapTable th,
-    .mapTable td{
-      padding:16px 18px;
-      text-align:left;
-      border-bottom:1px solid var(--line);
-      vertical-align:middle;
-      font-size:13px;
+    .skinBox img{
+      max-width:118px;
+      max-height:176px;
+      object-fit:contain;
+      filter:drop-shadow(0 12px 16px rgba(31,53,72,.16));
     }
 
-    .mapTable th{
-      color:var(--heading);
-      font-weight:900;
-      white-space:nowrap;
+    .skinFallback{
+      position:relative;
+      width:74px;
+      height:132px;
+      border-radius:24px 24px 18px 18px;
+      overflow:hidden;
+      background:#263545;
+      border:10px solid rgba(30,45,58,.86);
+      box-shadow:
+        inset 0 0 0 1px rgba(255,255,255,.18),
+        0 16px 28px rgba(31,53,72,.13);
     }
 
-    .mapTable tbody tr{
-      background:#fff;
-      transition:background .16s ease;
+    .skinFallback::before{
+      content:"";
+      position:absolute;
+      left:0;
+      right:0;
+      top:0;
+      height:50%;
+      background:linear-gradient(180deg, rgba(178,205,225,.98), rgba(130,158,184,.9));
     }
 
-    .mapTable tbody tr:hover{
-      background:rgba(15,76,92,.035);
+    .skinFallback::after{
+      content:"";
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:0;
+      height:50%;
+      background:#263545;
     }
 
-    .mapTable tbody tr:last-child td{
-      border-bottom:0;
+    .skinFallback.gold::before{
+      background:linear-gradient(180deg, rgba(246,212,91,.98), rgba(242,176,146,.92));
     }
 
-    .mapName{
-      color:var(--heading);
-      font-size:14px;
-      font-weight:900;
-      line-height:1.35;
-      white-space:nowrap;
+    .founderInfo{
+      position:relative;
+      z-index:1;
+      min-width:0;
     }
 
-    .mapSub{
-      margin-top:4px;
-      color:var(--muted);
-      font-size:12px;
-      font-weight:750;
-      line-height:1.4;
-    }
-
-    .mapVersion,
-    .mapSize,
-    .mapDate{
-      color:#445d69;
-      font-size:13px;
-      font-weight:850;
-      white-space:nowrap;
-    }
-
-    .statusPill{
+    .miniPill{
       display:inline-flex;
       align-items:center;
       gap:7px;
-      min-height:30px;
-      padding:0 11px;
-      border-radius:999px;
-      font-size:12px;
-      font-weight:900;
-      white-space:nowrap;
-      border:1px solid transparent;
-    }
-
-    .statusPill::before{
-      content:"";
-      width:7px;
-      height:7px;
-      border-radius:999px;
-      background:currentColor;
-      box-shadow:0 0 0 4px rgba(42,157,143,.10);
-    }
-
-    .status-ready{
-      color:var(--sea);
-      background:rgba(15,76,92,.08);
-      border-color:rgba(15,76,92,.14);
-    }
-
-    .status-archive{
-      color:#6a7d89;
-      background:rgba(106,125,137,.12);
-      border-color:rgba(106,125,137,.18);
-    }
-
-    .downloadBtn{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
-      min-height:38px;
-      padding:0 14px;
-      border-radius:999px;
-      color:#fff;
-      text-decoration:none;
-      font-size:12px;
-      font-weight:900;
-      background:linear-gradient(135deg, var(--sea), var(--teal));
-      box-shadow:0 12px 24px rgba(15,76,92,.18);
-      transition:transform .16s ease, box-shadow .16s ease;
-      white-space:nowrap;
-    }
-
-    .downloadBtn:hover{
-      transform:translateY(-2px);
-      box-shadow:0 16px 30px rgba(15,76,92,.22);
-    }
-
-    .downloadFootnote{
-      margin:14px 2px 0;
-      color:var(--muted);
-      font-size:12px;
-      font-weight:750;
-      line-height:1.65;
-    }
-
-    .galleryGrid{
-      display:grid;
-      grid-template-columns:1.2fr .8fr .8fr;
-      grid-template-rows:220px 220px;
-      gap:14px;
-      padding:20px;
-    }
-
-    .galleryItem{
-      position:relative;
-      border-radius:24px;
-      border:1px solid var(--line);
-      background:var(--img) center / cover no-repeat, linear-gradient(135deg, rgba(15,76,92,.15), rgba(42,157,143,.12));
-      box-shadow:var(--shadow-soft);
-      overflow:hidden;
-      min-height:180px;
-    }
-
-    .galleryItem.big{ grid-row:span 2; }
-
-    .galleryItem::after{
-      content:"";
-      position:absolute;
-      inset:0;
-      background:linear-gradient(180deg, rgba(8,22,30,0) 0%, rgba(8,22,30,.64) 100%);
-    }
-
-    .galleryCaption{
-      position:absolute;
-      left:16px;
-      right:16px;
-      bottom:14px;
-      z-index:1;
-      color:#fff;
-    }
-
-    .galleryCaption strong{
-      display:block;
-      font-size:17px;
-      line-height:1.25;
-      font-weight:900;
-      letter-spacing:-.02em;
-      text-shadow:0 8px 18px rgba(0,0,0,.22);
-    }
-
-    .galleryCaption span{
-      display:block;
-      margin-top:5px;
-      font-size:12px;
-      line-height:1.45;
-      font-weight:650;
-      opacity:.88;
-    }
-
-    .timeline{
-      padding:20px;
-      display:grid;
-      gap:12px;
-    }
-
-    .timelineItem{
-      display:grid;
-      grid-template-columns:120px minmax(0, 1fr);
-      gap:14px;
-      align-items:start;
-      padding:16px;
-      border:1px solid var(--line);
-      border-radius:22px;
-      background:rgba(255,255,255,.82);
-      box-shadow:0 8px 20px rgba(31,53,72,.06);
-    }
-
-    .timelineVersion{
-      display:inline-flex;
-      align-items:center;
-      justify-content:center;
       width:max-content;
+      max-width:100%;
       padding:7px 12px;
       border-radius:999px;
       color:#9a5a12;
       background:linear-gradient(135deg, rgba(244,162,97,.18), rgba(255,239,221,.92));
       border:1px solid rgba(244,162,97,.22);
+      box-shadow:0 8px 18px rgba(244,162,97,.10);
       font-size:12px;
       font-weight:900;
       white-space:nowrap;
     }
 
-    .timelineText h3{
-      margin:0 0 6px;
-      color:var(--heading);
-      font-size:18px;
-      line-height:1.3;
-      font-weight:900;
+    .pillDot{
+      width:5px;
+      height:5px;
+      border-radius:999px;
+      background:#c97920;
+      box-shadow:0 0 0 4px rgba(244,162,97,.13);
+      flex:0 0 auto;
     }
 
-    .timelineText p{
-      margin:0;
+    .founderName{
+      margin:10px 0 4px;
+      color:var(--heading);
+      font-size:18px;
+      font-weight:900;
+      letter-spacing:-.02em;
+    }
+
+    .founderId{
+      color:#506875;
+      font-size:12px;
+      font-weight:800;
+    }
+
+    .founderDesc{
+      margin:12px 0 0;
       color:var(--muted);
-      font-size:13px;
-      line-height:1.7;
+      font-size:12px;
+      line-height:1.75;
       font-weight:650;
     }
 
-    .footerNote{
-      margin-top:22px;
+    .sideStack{
+      display:flex;
+      flex-direction:column;
+      gap:18px;
+    }
+
+    .dc-card,
+    .event-card{
+      width:100%;
+      padding:16px;
+      border-radius:24px;
+      background:var(--surface-glass);
+      backdrop-filter:blur(16px);
+      border:1px solid var(--line);
+      box-shadow:var(--shadow-soft);
+    }
+
+    .dc-pill,
+    .event-pill{
+      display:inline-flex;
+      align-items:center;
+      gap:7px;
+      width:max-content;
+      max-width:100%;
+      padding:7px 12px;
+      border-radius:999px;
+      color:#9a5a12;
+      background:linear-gradient(135deg, rgba(244,162,97,.18), rgba(255,239,221,.92));
+      border:1px solid rgba(244,162,97,.22);
+      box-shadow:0 8px 18px rgba(244,162,97,.10);
+      font-size:12px;
+      font-weight:900;
+      white-space:nowrap;
+    }
+
+    .dc-body,
+    .event-body{
+      margin-top:10px;
+    }
+
+    .dc-title,
+    .event-title{
+      margin:6px 0 0;
+      color:var(--heading);
+      font-size:22px;
+      line-height:1.2;
+      letter-spacing:-.04em;
+      font-weight:900;
+    }
+
+    .dc-desc,
+    .event-desc{
+      margin-top:8px;
+      color:#526875;
+      font-size:13px;
+      line-height:1.55;
+      font-weight:650;
+      display:-webkit-box;
+      -webkit-line-clamp:3;
+      -webkit-box-orient:vertical;
+      overflow:hidden;
+    }
+
+    .dc-status{
+      margin-top:10px;
+      display:flex;
+      align-items:center;
+      gap:7px;
+      color:#526875;
+      font-size:12px;
+      font-weight:800;
+    }
+
+    .onlineDot{
+      width:8px;
+      height:8px;
+      border-radius:999px;
+      background:#22c55e;
+      box-shadow:0 0 0 5px rgba(34,197,94,.10);
+      flex:0 0 auto;
+    }
+
+    .dc-stats,
+    .event-countdown{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      gap:8px;
+      margin-top:12px;
+    }
+
+    .dc-stat,
+    .countBox{
+      min-height:72px;
+      padding:11px 12px;
+      border-radius:16px;
+      border:1px solid var(--line);
+      background:#fff;
+    }
+
+    .dc-stat-num,
+    .countNum{
+      color:var(--heading);
+      font-size:21px;
+      line-height:1;
+      font-weight:900;
+      letter-spacing:-.04em;
+    }
+
+    .dc-stat-label,
+    .countLabel{
+      margin-top:8px;
       color:var(--muted);
       font-size:12px;
-      font-weight:700;
+      font-weight:900;
+    }
+
+    .dc-note,
+    .event-note{
+      margin-top:10px;
+      padding:9px 10px;
+      border-radius:14px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:750;
+      line-height:1.55;
+      background:rgba(15,76,92,.045);
+      border:1px dashed rgba(15,76,92,.15);
+    }
+
+    .dc-sub,
+    .event-sub{
+      margin-top:8px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:750;
+      line-height:1.45;
+    }
+
+    .dc-join,
+    .event-link{
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      min-height:42px;
+      margin-top:13px;
+      border-radius:999px;
+      color:#fff;
       text-align:center;
+      text-decoration:none;
+      font-size:13px;
+      font-weight:900;
+      background:linear-gradient(135deg, var(--sea), var(--teal));
+      box-shadow:0 14px 28px rgba(15,76,92,.20);
+      transition:transform .16s ease, box-shadow .16s ease;
+    }
+
+    .dc-join:hover,
+    .event-link:hover{
+      transform:translateY(-2px);
+      box-shadow:0 18px 34px rgba(15,76,92,.24);
+    }
+
+    .activityGrid{
+      display:grid;
+      grid-template-columns:minmax(0, 1fr) 320px;
+      gap:18px;
+      padding:20px;
+      align-items:start;
+    }
+
+    .activityPoster{
+      min-height:392px;
+      border:1px solid var(--line);
+      border-radius:28px;
+      background:#fff;
+      box-shadow:var(--shadow-soft);
+      overflow:hidden;
+      position:relative;
+    }
+
+    .activitySlider{
+      position:relative;
+      width:100%;
+      height:100%;
+      min-height:392px;
+      overflow:hidden;
+      background:#102f3d;
+    }
+
+    .slides{
+      position:relative;
+      width:100%;
+      height:100%;
+      min-height:392px;
+    }
+
+    .slide{
+      position:absolute;
+      inset:0;
+      opacity:0;
+      visibility:hidden;
+      transform:scale(1.02);
+      transition:opacity .45s ease, visibility .45s ease, transform .7s ease;
+    }
+
+    .slide.active{
+      opacity:1;
+      visibility:visible;
+      transform:scale(1);
+    }
+
+    .slide img{
+      width:100%;
+      height:100%;
+      min-height:392px;
+      object-fit:cover;
+      display:block;
+    }
+
+    .slideFallback{
+      width:100%;
+      min-height:392px;
+      height:100%;
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      background:#ffcd3c;
+    }
+
+    .fallbackText{
+      display:flex;
+      flex-direction:column;
+      align-items:center;
+      justify-content:center;
+      padding:24px;
+      text-align:center;
+      background:
+        radial-gradient(circle at 32% 20%, rgba(255,255,255,.9), transparent 36%),
+        linear-gradient(135deg, #fbf9eb, #edf7f3);
+    }
+
+    .fallbackKicker{
+      color:var(--sea);
+      font-size:10px;
+      letter-spacing:.14em;
+      font-weight:900;
+      text-transform:uppercase;
+    }
+
+    .fallbackTitle{
+      margin:14px 0 14px;
+      color:var(--teal);
+      font-size:32px;
+      line-height:1.22;
+      letter-spacing:-.035em;
+      font-weight:900;
+    }
+
+    .fallbackBtn{
+      display:inline-flex;
+      align-items:center;
+      justify-content:center;
+      min-height:28px;
+      padding:0 12px;
+      border-radius:999px;
+      color:var(--sea);
+      font-size:11px;
+      font-weight:900;
+      border:1px solid rgba(15,76,92,.22);
+      background:#fff;
+    }
+
+    .fallbackArt{
+      display:grid;
+      grid-template-columns:1fr 1fr;
+      min-height:392px;
+    }
+
+    .artCell{
+      position:relative;
+      min-height:196px;
+      display:grid;
+      place-items:center;
+      overflow:hidden;
+    }
+
+    .artCell:nth-child(1){ background:#ffca2c; }
+    .artCell:nth-child(2){ background:#b9eadc; }
+    .artCell:nth-child(3){ background:#2d9a9b; }
+    .artCell:nth-child(4){ background:#ffca2c; }
+
+    .building{
+      width:98px;
+      height:96px;
+      border-radius:18px 18px 6px 6px;
+      background:linear-gradient(180deg, #0f8fa2, #1b6c7a);
+      box-shadow:inset 0 0 0 8px rgba(255,255,255,.22);
+      position:relative;
+    }
+
+    .building::before,
+    .building::after{
+      content:"";
+      position:absolute;
+      background:#ffd166;
+      border-radius:4px;
+    }
+
+    .building::before{
+      width:62px;
+      height:10px;
+      left:18px;
+      top:22px;
+      box-shadow:0 18px 0 #ffd166, 0 36px 0 #ffd166;
+    }
+
+    .building::after{
+      width:22px;
+      height:48px;
+      right:-18px;
+      bottom:0;
+      background:#21a4ad;
+    }
+
+    .gardener{
+      width:84px;
+      height:132px;
+      position:relative;
+      transform:rotate(10deg);
+    }
+
+    .gardener::before{
+      content:"";
+      position:absolute;
+      left:34px;
+      top:12px;
+      width:28px;
+      height:28px;
+      border-radius:50%;
+      background:#f2c185;
+      box-shadow:0 -18px 0 -8px #0f4c5c;
+    }
+
+    .gardener::after{
+      content:"";
+      position:absolute;
+      left:28px;
+      top:42px;
+      width:36px;
+      height:78px;
+      border-radius:18px;
+      background:#2a9d8f;
+      box-shadow:22px 26px 0 -8px #f4a261, -18px 46px 0 -8px #f4a261;
+    }
+
+    .car{
+      width:112px;
+      height:62px;
+      border-radius:18px 26px 12px 12px;
+      background:#74c69d;
+      position:relative;
+      box-shadow:inset 0 -10px 0 rgba(15,76,92,.18);
+    }
+
+    .car::before{
+      content:"";
+      position:absolute;
+      left:22px;
+      top:-22px;
+      width:66px;
+      height:32px;
+      border-radius:14px 14px 4px 4px;
+      background:#a7e4c6;
+      border:8px solid #0f4c5c;
+    }
+
+    .car::after{
+      content:"";
+      position:absolute;
+      left:20px;
+      bottom:-12px;
+      width:24px;
+      height:24px;
+      border-radius:50%;
+      background:#163042;
+      box-shadow:58px 0 0 #163042;
+    }
+
+    .globe{
+      width:112px;
+      height:112px;
+      border-radius:50%;
+      background:radial-gradient(circle at 34% 28%, #bdebdc, #2a9d8f 72%);
+      position:relative;
+      box-shadow:inset -14px -18px 0 rgba(15,76,92,.16);
+    }
+
+    .globe::after{
+      content:"";
+      position:absolute;
+      left:22px;
+      top:26px;
+      width:64px;
+      height:42px;
+      border-radius:50% 40% 50% 35%;
+      background:#0f4c5c;
+      opacity:.34;
+      transform:rotate(-18deg);
+    }
+
+    .slideOverlay{
+      position:absolute;
+      left:0;
+      right:0;
+      bottom:0;
+      padding:72px 24px 24px;
+      color:#fff;
+      background:linear-gradient(
+        180deg,
+        rgba(8,22,30,0) 0%,
+        rgba(8,22,30,.24) 30%,
+        rgba(8,22,30,.76) 100%
+      );
+      z-index:2;
+    }
+
+    .slideKicker{
+      font-size:11px;
+      font-weight:900;
+      letter-spacing:.14em;
+      text-transform:uppercase;
+      opacity:.92;
+    }
+
+    .slideTitle{
+      margin-top:10px;
+      font-size:32px;
+      line-height:1.18;
+      letter-spacing:-.035em;
+      font-weight:900;
+      text-shadow:0 8px 18px rgba(0,0,0,.24);
+    }
+
+    .slideDesc{
+      margin-top:10px;
+      max-width:520px;
+      font-size:13px;
+      line-height:1.7;
+      font-weight:650;
+      opacity:.92;
+    }
+
+    .slideNav{
+      position:absolute;
+      top:50%;
+      transform:translateY(-50%);
+      width:42px;
+      height:42px;
+      border:0;
+      border-radius:999px;
+      background:rgba(255,255,255,.82);
+      color:var(--sea);
+      font-size:28px;
+      font-weight:900;
+      line-height:1;
+      cursor:pointer;
+      display:grid;
+      place-items:center;
+      backdrop-filter:blur(8px);
+      box-shadow:0 10px 22px rgba(31,53,72,.16);
+      z-index:4;
+      transition:.16s ease;
+    }
+
+    .slideNav:hover{
+      transform:translateY(-50%) scale(1.04);
+      background:#fff;
+    }
+
+    .slideNav.prev{ left:14px; }
+    .slideNav.next{ right:14px; }
+
+    .slideDots{
+      position:absolute;
+      left:50%;
+      bottom:16px;
+      transform:translateX(-50%);
+      display:flex;
+      gap:8px;
+      z-index:5;
+    }
+
+    .dotBtn{
+      width:10px;
+      height:10px;
+      padding:0;
+      border:0;
+      border-radius:999px;
+      background:rgba(255,255,255,.48);
+      cursor:pointer;
+      transition:.2s ease;
+    }
+
+    .dotBtn.active{
+      width:28px;
+      background:#fff;
+    }
+
+    .event-date{
+      margin-top:8px;
+      color:var(--muted);
+      font-size:12px;
+      font-weight:800;
     }
 
     @media (max-width:1060px){
-      .hero{ grid-template-columns:1fr; }
-      .portalGrid,
-      .infoGrid{ grid-template-columns:1fr 1fr; }
-      .galleryGrid{
-        grid-template-columns:1fr 1fr;
-        grid-template-rows:220px 220px 220px;
+      .hero,
+      .introGrid,
+      .activityGrid{
+        grid-template-columns:1fr;
       }
-      .galleryItem.big{ grid-row:span 1; grid-column:span 2; }
+
+      .sideStack{
+        display:grid;
+        grid-template-columns:1fr 1fr;
+      }
     }
 
     @media (max-width:780px){
@@ -1126,32 +1153,22 @@
         padding-bottom:2px;
       }
 
-      .navDropdown{ flex:0 0 auto; }
-
-      .navDropdownMenu{
-        position:fixed;
-        top:auto;
-        left:14px;
-        right:14px;
-        transform:translateY(-6px);
-        min-width:0;
-      }
-
-      .navDropdown:hover .navDropdownMenu,
-      .navDropdown:focus-within .navDropdownMenu,
-      .navDropdown.open .navDropdownMenu{
-        transform:translateY(0);
-      }
-
       .navPills a{ flex:0 0 auto; }
-
-      .heroCard,
-      .summaryPanel,
-      .section{ border-radius:26px; }
 
       .heroCard{
         min-height:auto;
         padding:24px;
+        border-radius:26px;
+      }
+
+      .quickGrid,
+      .founderGrid,
+      .sideStack{
+        grid-template-columns:1fr;
+      }
+
+      .section{
+        border-radius:26px;
       }
 
       .sectionHead{
@@ -1160,24 +1177,54 @@
         padding:20px;
       }
 
-      .portalGrid,
-      .infoGrid,
-      .galleryGrid,
-      .timeline,
-      .downloadPanel{
-        grid-template-columns:1fr;
+      .introGrid,
+      .activityGrid{
         padding:14px;
       }
 
-      .downloadHero{ grid-template-columns:1fr; }
-      .downloadTitle{ font-size:22px; }
-      .downloadStats{ grid-template-columns:1fr; }
+      .founderCard{
+        grid-template-columns:104px minmax(0, 1fr);
+        min-height:190px;
+      }
 
-      .portalCard{ min-height:240px; }
-      .galleryGrid{ grid-template-rows:auto; }
-      .galleryItem.big{ grid-column:auto; }
-      .galleryItem{ min-height:220px; }
-      .timelineItem{ grid-template-columns:1fr; }
+      .skinBox{
+        height:150px;
+      }
+
+      .activityPoster,
+      .activitySlider,
+      .slides,
+      .slide img,
+      .slideFallback{
+        min-height:300px;
+      }
+
+      .slideOverlay{
+        padding:62px 18px 20px;
+      }
+
+      .slideTitle{
+        font-size:24px;
+        line-height:1.22;
+      }
+
+      .slideDesc{
+        font-size:12px;
+      }
+
+      .slideNav{
+        width:38px;
+        height:38px;
+        font-size:24px;
+      }
+
+      .slideFallback{
+        grid-template-columns:1fr;
+      }
+
+      .fallbackArt{
+        min-height:260px;
+      }
     }
 
     @media (max-width:520px){
@@ -1188,440 +1235,558 @@
         padding:10px 10px 34px;
       }
 
+      .heroCard,
+      .quickCard,
+      .section{
+        border-radius:22px;
+      }
+
       .heroTitle{
         font-size:42px;
         line-height:1.16;
         letter-spacing:-.035em;
       }
 
-      .heroActions{ flex-direction:column; }
-      .actionBtn{ width:100%; }
-      .statGrid{ grid-template-columns:1fr; }
-      .portalTitle{ font-size:25px; }
+      .heroActions{
+        flex-direction:column;
+      }
+
+      .actionBtn{
+        width:100%;
+      }
+
+      .founderCard{
+        grid-template-columns:1fr;
+        text-align:left;
+      }
+
+      .skinBox{
+        height:178px;
+      }
+
+      .fallbackArt{
+        grid-template-columns:1fr 1fr;
+      }
+
+      .slideNav.prev{ left:10px; }
+      .slideNav.next{ right:10px; }
     }
   
-/* ===== Unified Light Scrollbar ===== */
-html{
-color-scheme:light;
-scrollbar-width:thin;
-scrollbar-color:#6f8793 #dce7ec;
-scrollbar-gutter:stable;
-}
-body,
-.navPills,
-.mapTableScroll{
-scrollbar-width:thin;
-scrollbar-color:#6f8793 #dce7ec;
-}
-html::-webkit-scrollbar,
-body::-webkit-scrollbar,
-.navPills::-webkit-scrollbar,
-.mapTableScroll::-webkit-scrollbar{
-width:11px;
-height:11px;
-}
-html::-webkit-scrollbar-track,
-body::-webkit-scrollbar-track,
-.navPills::-webkit-scrollbar-track,
-.mapTableScroll::-webkit-scrollbar-track{
-background:#dce7ec;
-border-radius:999px;
-}
-html::-webkit-scrollbar-thumb,
-body::-webkit-scrollbar-thumb,
-.navPills::-webkit-scrollbar-thumb,
-.mapTableScroll::-webkit-scrollbar-thumb{
-background:linear-gradient(180deg,#7d98a4,#587480) padding-box;
-border:3px solid transparent;
-border-radius:999px;
-min-height:46px;
-}
-html::-webkit-scrollbar-thumb:hover,
-body::-webkit-scrollbar-thumb:hover,
-.navPills::-webkit-scrollbar-thumb:hover,
-.mapTableScroll::-webkit-scrollbar-thumb:hover{
-background:linear-gradient(180deg,#6d8b98,#486773) padding-box;
-}
-@media(max-width:780px){
-.navPills{
-scrollbar-width:none;
-}
-.navPills::-webkit-scrollbar{
-display:none;
-}
-}
+    /* =========================================================
+       統一自訂 Scrollbar
+       適用：整頁、手機導覽列及所有可捲動區域
+       ========================================================= */
 
-</style>
+    html{
+      color-scheme:light;
+      scrollbar-width:thin;
+      scrollbar-color:#6f8793 #dce7ec;
+      scrollbar-gutter:stable;
+    }
+
+    body,
+    .navPills{
+      scrollbar-width:thin;
+      scrollbar-color:#6f8793 #dce7ec;
+    }
+
+    html::-webkit-scrollbar,
+    body::-webkit-scrollbar,
+    .navPills::-webkit-scrollbar{
+      width:11px;
+      height:11px;
+    }
+
+    html::-webkit-scrollbar-track,
+    body::-webkit-scrollbar-track,
+    .navPills::-webkit-scrollbar-track{
+      background:#dce7ec;
+      border-radius:999px;
+      box-shadow:
+        inset 0 0 0 1px rgba(15,76,92,.06),
+        inset 0 0 10px rgba(31,53,72,.05);
+    }
+
+    html::-webkit-scrollbar-thumb,
+    body::-webkit-scrollbar-thumb,
+    .navPills::-webkit-scrollbar-thumb{
+      min-height:46px;
+      border:3px solid transparent;
+      border-radius:999px;
+      background:
+        linear-gradient(
+          180deg,
+          #7d98a4,
+          #587480
+        ) padding-box;
+      box-shadow:
+        inset 0 1px 0 rgba(255,255,255,.34),
+        0 2px 8px rgba(31,53,72,.16);
+    }
+
+    html::-webkit-scrollbar-thumb:hover,
+    body::-webkit-scrollbar-thumb:hover,
+    .navPills::-webkit-scrollbar-thumb:hover{
+      background:
+        linear-gradient(
+          180deg,
+          #6d8b98,
+          #486773
+        ) padding-box;
+    }
+
+    html::-webkit-scrollbar-thumb:active,
+    body::-webkit-scrollbar-thumb:active,
+    .navPills::-webkit-scrollbar-thumb:active{
+      background:
+        linear-gradient(
+          180deg,
+          #557681,
+          #385763
+        ) padding-box;
+    }
+
+    html::-webkit-scrollbar-corner,
+    body::-webkit-scrollbar-corner,
+    .navPills::-webkit-scrollbar-corner{
+      background:transparent;
+    }
+
+    /* 手機版導覽列維持可左右滑動，但隱藏橫向 scrollbar */
+    @media (max-width:780px){
+      .navPills{
+        scrollbar-width:none;
+      }
+
+      .navPills::-webkit-scrollbar{
+        display:none;
+      }
+    }
+
+  </style>
 </head>
 
 <body>
   <main class="page">
     <header class="topbar">
-      <a class="brand" href="../" aria-label="返回葉離首頁">
-        <div class="brandMark"> <img src="https://raw.githubusercontent.com/ItzSeir/ItzSeir/bc6a1e6687c70f0eb1ddcbd431e869bf2262dadb/Profile%20Pitcure/%E8%91%89%E9%9B%A2.png" alt="葉離"> </div>
+      <a class="brand" href="#top" aria-label="葉離首頁">
+         <div class="brandMark">
+    <img src="https://raw.githubusercontent.com/ItzSeir/ItzSeir/bc6a1e6687c70f0eb1ddcbd431e869bf2262dadb/Profile%20Pitcure/%E8%91%89%E9%9B%A2.png" alt="葉離">
+  </div>
         <div class="brandText">
           <strong>葉離社群</strong>
-          <span>麥塊 MINECRAFT</span>
+          <span>社群首頁</span>
         </div>
       </a>
 
       <nav class="navPills" aria-label="主選單">
-        <a href="https://itzseir.github.io/FloestSMP">首頁</a>
-        <a href="https://itzseir.github.io/FloestSMP/activities">往期活動</a>
-        <div class="navDropdown active" id="minecraftDropdown">
-          <button class="navDropdownToggle" type="button" aria-haspopup="true" aria-expanded="false">麥塊</button>
-          <div class="navDropdownMenu" role="menu">
-            <a href="index.html" role="menuitem"><span>麥塊首頁</span><span class="versionTag">Hub</首頁></a>
-            <a href="1.19.1" role="menuitem"><span>1.19.1</span><span class="versionTag">原味生存</span></a>
-            <a href="1.16.5" role="menuitem"><span>1.16.5</span><span class="versionTag">原味生存</span></a>
-          </div>
-        </div>
-        <a href="https://itzseir.github.io/FloestSMP/other">其他</a>
-        <a href="https://itzseir.github.io/FloestSMP/information">資訊</a>
+        <a class="active" href="#top">首頁</a>
+        <a href="activities">往期活動</a>
+        <a href="minecraft">麥塊</a>
+        <a href="other">其他</a>
+        <a href="information">資訊</a>
       </nav>
     </header>
 
     <section class="hero" id="top">
       <div class="heroCard">
-        <div class="eyebrow"><span class="dot"></span> MINECRAFT MEMORY HUB</div>
-        <h1 class="heroTitle">Minecraft<span>回憶入口</span></h1>
+        <div class="eyebrow"><span class="dot"></span> 介紹</div>
+        <h1 class="heroTitle">葉離社群<span>重製版</span></h1>
         <p class="heroDesc">
-          這裡整理葉離 / 花祭在不同 Minecraft 版本中的生存紀錄、城鎮、建築、成員與精選圖片。你可以從版本傳送門進入不同時期的回憶頁，例如 1.16.5 原味生存、1.19 企劃或未來更多版本。
+         測試中
         </p>
         <div class="heroActions">
-          <a class="actionBtn" href="#versions">選擇版本</a>
-          <a class="actionBtn ghostBtn" href="#downloads">下載地圖</a>
-          <a class="actionBtn ghostBtn" href="1.16.5.html">前往 1.16.5</a>
+          <a class="actionBtn" href="#community">查看社群</a>
+          <a class="actionBtn ghostBtn" href="#activity">查看活動</a>
         </div>
       </div>
 
-      <aside class="summaryPanel">
-        <div class="summaryImg" aria-label="Minecraft 精選圖片"></div>
-        <div class="miniPill"><span class="pillDot"></span>Archive Summary</div>
-        <h2 class="summaryTitle">版本、城鎮與建築回憶集中區</h2>
-        <p class="summaryText">用同一個入口連到所有 Minecraft 版本頁，避免之後版本變多時首頁太亂。</p>
-        <div class="statGrid">
-          <div class="statBox">
-            <div class="statNum">1.16.5</div>
-            <div class="statLabel">已建立頁面</div>
+      <aside class="quickCard">
+        <div class="eyebrow"><span class="dot" style="background:var(--warm);"></span> 簡介</div>
+        <h2 class="quickTitle">快速資訊</h2>
+        <p class="quickText">測試</p>
+        <div class="quickGrid">
+          <div class="quickStat">
+            <div class="quickNum">2020</div>
+            <div class="quickLabel">成立年份</div>
           </div>
-          <div class="statBox">
-            <div class="statNum">4</div>
-            <div class="statLabel">地圖下載</div>
+          <div class="quickStat">
+            <div class="quickNum">6+</div>
+            <div class="quickLabel">週年活動</div>
+          </div>
+          <div class="quickStat">
+            <div class="quickNum">Discord</div>
+            <div class="quickLabel">社群平台</div>
+          </div>
+          <div class="quickStat">
+            <div class="quickNum">SMP</div>
+            <div class="quickLabel">核心主題</div>
           </div>
         </div>
       </aside>
     </section>
 
-    <section class="section" id="versions">
+    <section class="section" id="community">
       <div class="sectionHead">
         <div>
-          <div class="sectionKicker"><span class="dot"></span> Version Portals</div>
-          <h2 class="sectionTitle">版本傳送門</h2>
-          <p class="sectionDesc">每一張卡片都是一個版本入口。已完成的版本可以點擊進入，未完成的版本先作為預告卡保留。</p>
+          <div class="sectionKicker"><span class="dot"></span> Community</div>
+          <h2 class="sectionTitle">社群介紹</h2>
+          <p class="sectionDesc"></p>
         </div>
       </div>
 
-      <div class="portalGrid">
-        <a class="portalCard" href="1.16.5" style="--portal-img:url('../data/1.16.5/1.png');">
-          <div class="portalContent">
-            <div class="portalMeta">
-              <span class="portalBadge">原味生存</span>
-              <span class="portalStatus">開放</span>
-            </div>
-            <h3 class="portalTitle">1.16.5</h3>
-            <p class="portalDesc">我們相遇後的首張生存地圖。</p>
+      <div class="introGrid">
+        <div class="introMain">
+          <div class="quoteBox">
+            2020年12月30日，燈燈建立了私人花祭。由於花祭的定位為私人小圈圈，因此出現葉離社群。由於會有詐騙機器人亂點連結，暫不提供直接加入的連結。
           </div>
-        </a>
 
-        <a class="portalCard" href="1.19.1" style="--portal-img:url('../data/1.19.1/1.png');">
-          <div class="portalContent">
-            <div class="portalMeta">
-              <span class="portalBadge">原味生存</span>
-              <span class="portalStatus">開放</span>
-            </div>
-            <h3 class="portalTitle">1.19</h3>
-            <p class="portalDesc">分居建築的開始 也是最多建築的地方紀錄。</p>
-          </div>
-        </a>
-
-        <a class="portalCard locked" href="#" onclick="return false;" style="--portal-img:linear-gradient(135deg, rgba(15,76,92,.62), rgba(42,157,143,.42)), url('../pitcure/1.16.5/3.png');">
-          <div class="portalContent">
-            <div class="portalMeta">
-              <span class="portalBadge">未來版本</span>
-              <span class="portalStatus">整理中</span>
-            </div>
-            <h3 class="portalTitle">更多版本</h3>
-            <p class="portalDesc">整理中</p>
-          </div>
-        </a>
-      </div>
-    </section>
-
-    <section class="section" id="info">
-      <div class="sectionHead">
-        <div>
-          <div class="sectionKicker"><span class="dot" style="background:var(--warm);"></span> Server Info</div>
-          <h2 class="sectionTitle">Minecraft 資訊</h2>
-          <p class="sectionDesc">這裡可以放整個 Minecraft 回憶區的說明，讓玩家知道每個版本頁的用途。</p>
-        </div>
-      </div>
-
-      <div class="infoGrid">
-        <article class="infoCard">
-          <div class="infoIcon">城</div>
-          <h3>城鎮與基地</h3>
-          <p>整理不同版本中的主城、玩家基地、商店街、紀念建築與道路規劃。</p>
-        </article>
-
-        <article class="infoCard">
-          <div class="infoIcon">人</div>
-          <h3>參與成員</h3>
-          <p>每個版本可以記錄參與玩家、建造者、美化者與輔助者，保留誰一起完成了什麼。</p>
-        </article>
-
-        <article class="infoCard">
-          <div class="infoIcon">圖</div>
-          <h3>精選圖片</h3>
-          <p>放置版本代表截圖、地標建築、活動照片與值得保存的回憶畫面。</p>
-        </article>
-      </div>
-    </section>
-
-    <section class="section" id="downloads">
-      <div class="sectionHead">
-        <div>
-          <div class="sectionKicker"><span class="dot" style="background:var(--warm);"></span> Map Downloads</div>
-          <h2 class="sectionTitle">Minecraft 地圖下載</h2>
-          <p class="sectionDesc">公開下載列表。點擊下載會開啟 Google Drive，檔案較大時請耐心等待。</p>
-        </div>
-      </div>
-
-      <div class="downloadPanel">
-        <div class="downloadHero">
-          <div class="downloadSummary">
-            <div class="miniPill"><span class="pillDot"></span>World Save Archive</div>
-            <h3 class="downloadTitle">原味生存地圖存檔</h3>
-            <p class="downloadText">
-              這裡集中放置葉離 / 花祭 Minecraft 原味生存地圖檔案。包含回溯檔案與不同版本的世界存檔，方便之後下載回顧。
-            </p>
-
-            <div class="downloadStats">
-              <div class="downloadStat">
-                <strong>4</strong>
-                <span>公開地圖</span>
+          <div class="founderGrid">
+            <article class="founderCard">
+              <div class="skinBox">
+                <img src="https://static.wixstatic.com/media/20a576_9d80bbbb34634bc3aca1450c8d153972~mv2.png/v1/fill/w_356,h_480,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/ddddbf_fae92f95e0f54297b7374f7123acc4b4~mv2.png" alt="徯風 Minecraft skin" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div class="skinFallback" style="display:none;"></div>
               </div>
-              <div class="downloadStat">
-                <strong>1GB+</strong>
-                <span>大型存檔</span>
+              <div class="founderInfo">
+                <div class="miniPill"><span class="pillDot"></span>葉離創始人</div>
+                <h3 class="founderName">筱風 <span class="founderId">ItzSeir</span></h3>
+                <p class="founderDesc">喜歡唱歌，玩遊戲的人類。星座：射手座</p>
               </div>
+            </article>
+
+            <article class="founderCard">
+              <div class="skinBox">
+                <img src="https://static.wixstatic.com/media/20a576_7f72e986fd064601b376caa327686743~mv2.png/v1/fill/w_356,h_480,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/ddddbf_cc6f40ceb2bd462eab4bff47480ee710~mv2.png" alt="燈燈 Minecraft skin" onerror="this.style.display='none'; this.nextElementSibling.style.display='block';">
+                <div class="skinFallback gold" style="display:none;"></div>
+              </div>
+              <div class="founderInfo">
+                <div class="miniPill"><span class="pillDot"></span>花祭創始人</div>
+                <h3 class="founderName">燈燈 <span class="founderId">-</span></h3>
+                <p class="founderDesc">暫無個人簡介</p>
+              </div>
+            </article>
+          </div>
+        </div>
+
+        <aside class="sideStack">
+          <div class="dc-card">
+            <div class="dc-pill"><span class="pillDot"></span>葉離伺服器</div>
+            <div class="dc-body">
+              <div class="dc-title" id="dcName">載入中…</div>
+              <div class="dc-desc" id="dcDesc"></div>
+              <div class="dc-status">
+                <span class="onlineDot"></span>
+                <span id="dcOnlineText">- 人在線</span>
+              </div>
+
+              <div class="dc-stats">
+                <div class="dc-stat">
+                  <div class="dc-stat-num" id="dcText">—</div>
+                  <div class="dc-stat-label">文字頻道</div>
+                </div>
+                <div class="dc-stat">
+                  <div class="dc-stat-num" id="dcVoice">—</div>
+                  <div class="dc-stat-label">語音頻道</div>
+                </div>
+              </div>
+
+              <div class="dc-note" id="dcChanHint">頻道資訊載入中…</div>
+              <div class="dc-sub">需經過管理員審核後加入</div>
+              <div class="dc-sub" id="dcUpdated">最後更新：-</div>
+
+              <a class="dc-join" id="dcJoin" href="#" target="_blank" rel="noopener">加入 Discord</a>
             </div>
           </div>
-
-          <aside class="downloadNotice">
-            <div class="miniPill"><span class="pillDot"></span>下載提醒</div>
-            <ul class="noticeList">
-              <li>建議使用電腦下載與解壓縮，部分地圖檔案容量超過 1GB。</li>
-              <li>下載後請確認 Minecraft 版本與世界存檔版本一致。</li>
-              <li>Google Drive 若顯示無法預覽，仍可按下載按鈕取得檔案。</li>
-            </ul>
-          </aside>
-        </div>
-
-        <div class="mapTableWrap">
-          <div class="mapTableScroll">
-            <table class="mapTable">
-              <thead>
-                <tr>
-                  <th>地圖名稱</th>
-                  <th>支援版本</th>
-                  <th>檔案大小</th>
-                  <th>更新日期</th>
-                  <th>狀態</th>
-                  <th>下載</th>
-                </tr>
-              </thead>
-
-              <tbody>
-                <tr>
-                  <td>
-                    <div class="mapName">1.16.5 原味生存</div>
-                    <div class="mapSub">回溯存檔</div>
-                  </td>
-                  <td><span class="mapVersion">1.16.5</span></td>
-                  <td><span class="mapSize">1.15 GB</span></td>
-                  <td><span class="mapDate">2023-08-06</span></td>
-                  <td><span class="statusPill status-archive">回溯檔案</span></td>
-                  <td>
-                    <a class="downloadBtn" href="https://drive.google.com/file/d/1-8J7lhYLC5PEc3zPUeuVf_I2I8j_nlJt/view?usp=drive_link" target="_blank" rel="noopener">下載</a>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="mapName">1.19.1 原味生存</div>
-                    <div class="mapSub">公開下載</div>
-                  </td>
-                  <td><span class="mapVersion">1.19.1</span></td>
-                  <td><span class="mapSize">1.95 GB</span></td>
-                  <td><span class="mapDate">2023-05-22</span></td>
-                  <td><span class="statusPill status-ready">READY</span></td>
-                  <td>
-                    <a class="downloadBtn" href="https://drive.google.com/file/d/1k4I-Ebm3GXknm-LnnJk98YLQruasGUnb/view?usp=drive_link" target="_blank" rel="noopener">下載</a>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="mapName">1.20.1 原味生存</div>
-                    <div class="mapSub">公開下載</div>
-                  </td>
-                  <td><span class="mapVersion">1.20.1</span></td>
-                  <td><span class="mapSize">1.16 GB</span></td>
-                  <td><span class="mapDate">2023-09-09</span></td>
-                  <td><span class="statusPill status-ready">READY</span></td>
-                  <td>
-                    <a class="downloadBtn" href="https://drive.google.com/file/d/1WAZ1RPPuxiFVABB_imlE7ZYeX4WPifD8/view?usp=drive_link" target="_blank" rel="noopener">下載</a>
-                  </td>
-                </tr>
-
-                <tr>
-                  <td>
-                    <div class="mapName">1.21 原味生存</div>
-                    <div class="mapSub">公開下載</div>
-                  </td>
-                  <td><span class="mapVersion">1.21</span></td>
-                  <td><span class="mapSize">1.03 GB</span></td>
-                  <td><span class="mapDate">2024-10-20</span></td>
-                  <td><span class="statusPill status-ready">READY</span></td>
-                  <td>
-                    <a class="downloadBtn" href="https://drive.google.com/file/d/1WAZ1RPPuxiFVABB_imlE7ZYeX4WPifD8/view?usp=drive_link" target="_blank" rel="noopener">下載</a>
-                  </td>
-                </tr>
-              </tbody>
-            </table>
-          </div>
-        </div>
-
-        <p class="downloadFootnote">
-          小提示：如果之後要新增地圖，只需要複製其中一個 <code>&lt;tr&gt;</code>，再更換版本、大小、日期與 Google Drive 連結即可。
-        </p>
+        </aside>
       </div>
     </section>
 
-    <section class="section" id="gallery">
+    <section class="section" id="activity">
       <div class="sectionHead">
         <div>
-          <div class="sectionKicker"><span class="dot"></span> Featured Gallery</div>
-          <h2 class="sectionTitle">精選圖片</h2>
-          <p class="sectionDesc">先放 1.16.5 的圖片作為展示。之後可以換成不同版本的精選截圖。</p>
+          <div class="sectionKicker"><span class="dot" style="background:var(--warm);"></span> Events</div>
+          <h2 class="sectionTitle">活動</h2>
+          <p class="sectionDesc">活動區塊改成更清爽的雙欄 dashboard。左側是圖片輪播，右側是倒數與行動卡片。</p>
         </div>
       </div>
 
-      <div class="galleryGrid">
-        <div class="galleryItem big" style="--img:url('../pitcure/1.16.5/1.png');">
-          <div class="galleryCaption">
-            <strong>星巴克</strong>
-            <span>鯨魚鎮代表建築之一。</span>
+      <div class="activityGrid">
+        <div class="activityPoster">
+          <div class="activitySlider" id="activitySlider">
+            <div class="slides">
+              <div class="slide active">
+                <img src="assets/activity-1.jpg" alt="花祭 x 葉離新網點活動圖片" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+                <div class="slideFallback" style="display:none;">
+                  <div class="fallbackText">
+                    <div class="fallbackKicker">FLOWERSMP</div>
+                    <div class="fallbackTitle">花祭 x 葉離<br>新網點</div>
+                    <span class="fallbackBtn">睇更多</span>
+                  </div>
+                  <div class="fallbackArt" aria-label="活動插圖">
+                    <div class="artCell"><div class="building"></div></div>
+                    <div class="artCell"><div class="gardener"></div></div>
+                    <div class="artCell"><div class="car"></div></div>
+                    <div class="artCell"><div class="globe"></div></div>
+                  </div>
+                </div>
+                <div class="slideOverlay">
+                  <div class="slideKicker">FLOWERSMP</div>
+                  <div class="slideTitle">花祭 x 葉離<br>新網點</div>
+                  <div class="slideDesc">最新活動資訊與社群內容展示。</div>
+                </div>
+              </div>
+
+              <div class="slide">
+                <img src="assets/activity-2.jpg" alt="週年活動預告圖片" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+                <div class="slideFallback" style="display:none;">
+                  <div class="fallbackText">
+                    <div class="fallbackKicker">COMMUNITY EVENT</div>
+                    <div class="fallbackTitle">週年活動<br>預告</div>
+                    <span class="fallbackBtn">睇更多</span>
+                  </div>
+                  <div class="fallbackArt" aria-label="活動插圖">
+                    <div class="artCell"><div class="globe"></div></div>
+                    <div class="artCell"><div class="building"></div></div>
+                    <div class="artCell"><div class="gardener"></div></div>
+                    <div class="artCell"><div class="car"></div></div>
+                  </div>
+                </div>
+                <div class="slideOverlay">
+                  <div class="slideKicker">COMMUNITY EVENT</div>
+                  <div class="slideTitle">週年活動預告</div>
+                  <div class="slideDesc">一起參與社群週年活動與特別企劃。</div>
+                </div>
+              </div>
+
+              <div class="slide">
+                <img src="assets/activity-3.jpg" alt="伺服器新內容圖片" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';">
+                <div class="slideFallback" style="display:none;">
+                  <div class="fallbackText">
+                    <div class="fallbackKicker">SPECIAL UPDATE</div>
+                    <div class="fallbackTitle">伺服器<br>新內容</div>
+                    <span class="fallbackBtn">睇更多</span>
+                  </div>
+                  <div class="fallbackArt" aria-label="活動插圖">
+                    <div class="artCell"><div class="car"></div></div>
+                    <div class="artCell"><div class="globe"></div></div>
+                    <div class="artCell"><div class="building"></div></div>
+                    <div class="artCell"><div class="gardener"></div></div>
+                  </div>
+                </div>
+                <div class="slideOverlay">
+                  <div class="slideKicker">SPECIAL UPDATE</div>
+                  <div class="slideTitle">伺服器新內容</div>
+                  <div class="slideDesc">新增地圖、玩法與更多有趣內容。</div>
+                </div>
+              </div>
+            </div>
+
+            <button class="slideNav prev" type="button" aria-label="上一張">‹</button>
+            <button class="slideNav next" type="button" aria-label="下一張">›</button>
+
+            <div class="slideDots" aria-label="活動圖片切換">
+              <button class="dotBtn active" type="button" data-slide="0" aria-label="第 1 張"></button>
+              <button class="dotBtn" type="button" data-slide="1" aria-label="第 2 張"></button>
+              <button class="dotBtn" type="button" data-slide="2" aria-label="第 3 張"></button>
+            </div>
           </div>
         </div>
 
-        <div class="galleryItem" style="--img:url('../pitcure/1.16.5/2.png');">
-          <div class="galleryCaption">
-            <strong>紅石音樂</strong>
-            <span>版本中的紅石與音樂回憶。</span>
-          </div>
-        </div>
+        <aside class="event-card">
+          <div class="event-pill"><span class="pillDot"></span>週年倒計時</div>
+          <div class="event-body">
+            <h3 class="event-title">花祭 6 週年</h3>
+            <div class="event-date">目標：2026/12/30 00:00</div>
 
-        <div class="galleryItem" style="--img:url('../pitcure/1.16.5/3.png');">
-          <div class="galleryCaption">
-            <strong>雕像</strong>
-            <span>城鎮地標與裝飾建築。</span>
-          </div>
-        </div>
+            <div class="event-countdown">
+              <div class="countBox">
+                <div class="countNum" id="days">—</div>
+                <div class="countLabel">天</div>
+              </div>
+              <div class="countBox">
+                <div class="countNum" id="hours">—</div>
+                <div class="countLabel">時</div>
+              </div>
+              <div class="countBox">
+                <div class="countNum" id="minutes">—</div>
+                <div class="countLabel">分</div>
+              </div>
+              <div class="countBox">
+                <div class="countNum" id="seconds">—</div>
+                <div class="countLabel">秒</div>
+              </div>
+            </div>
 
-        <div class="galleryItem" style="--img:url('../pitcure/1.16.5/4.png');">
-          <div class="galleryCaption">
-            <strong>更多回憶</strong>
-            <span>可替換成其他圖片。</span>
+            <div class="event-note">暫無特別提醒</div>
+            <a class="event-link" href="#">查看活動</a>
           </div>
-        </div>
-
-        <div class="galleryItem" style="--img:url('../pitcure/1.16.5/5.png');">
-          <div class="galleryCaption">
-            <strong>版本紀錄</strong>
-            <span>保留不同時期的畫面。</span>
-          </div>
-        </div>
+        </aside>
       </div>
     </section>
-
-    <section class="section" id="timeline">
-      <div class="sectionHead">
-        <div>
-          <div class="sectionKicker"><span class="dot" style="background:var(--warm);"></span> Timeline</div>
-          <h2 class="sectionTitle">版本時間線</h2>
-          <p class="sectionDesc">用簡短時間線整理不同版本的狀態，之後新增頁面時比較清楚。</p>
-        </div>
-      </div>
-
-      <div class="timeline">
-        <article class="timelineItem">
-          <div><span class="timelineVersion">1.16.5</span></div>
-          <div class="timelineText">
-            <h3>原味生存回憶頁已建立</h3>
-            <p>包含鯨魚鎮、建築卡片、參與成員與圖片記錄。</p>
-          </div>
-        </article>
-
-        <article class="timelineItem">
-          <div><span class="timelineVersion">1.19</span></div>
-          <div class="timelineText">
-            <h3>資料整理中</h3>
-            <p>可以之後新增 `1.19.html`，並在傳送門中改成可點擊。</p>
-          </div>
-        </article>
-
-        <article class="timelineItem">
-          <div><span class="timelineVersion">Future</span></div>
-          <div class="timelineText">
-            <h3>更多版本預留</h3>
-            <p>未來可擴充更多版本、活動、地圖與玩家回憶頁。</p>
-          </div>
-        </article>
-      </div>
-    </section>
-
-    <p class="footerNote">FloestSMP Minecraft Memory Hub</p>
   </main>
 
   <script>
-    (() => {
-      const dropdown = document.getElementById('minecraftDropdown');
-      if (!dropdown) return;
-      const toggle = dropdown.querySelector('.navDropdownToggle');
+    const WIDGET_JSON = "https://discord.com/api/guilds/1007644345303838730/widget.json";
 
-      toggle.addEventListener('click', (e) => {
-        e.stopPropagation();
-        const isOpen = dropdown.classList.toggle('open');
-        toggle.setAttribute('aria-expanded', String(isOpen));
-      });
+    async function loadDiscordWidget(){
+      const dcName = document.getElementById("dcName");
+      const dcDesc = document.getElementById("dcDesc");
+      const dcOnlineText = document.getElementById("dcOnlineText");
+      const dcText = document.getElementById("dcText");
+      const dcVoice = document.getElementById("dcVoice");
+      const dcChanHint = document.getElementById("dcChanHint");
+      const dcUpdated = document.getElementById("dcUpdated");
+      const join = document.getElementById("dcJoin");
 
-      document.addEventListener('click', (e) => {
-        if (!dropdown.contains(e.target)) {
-          dropdown.classList.remove('open');
-          toggle.setAttribute('aria-expanded', 'false');
+      try{
+        const res = await fetch(WIDGET_JSON, { cache:"no-store" });
+        if(!res.ok) throw new Error(res.status);
+        const data = await res.json();
+
+        dcName.textContent = data.name ?? "Discord Server";
+        dcDesc.textContent = (data.description && data.description.trim())
+          ? data.description
+          : "歡迎加入我們的社群！";
+
+        const online = data.presence_count ?? 0;
+        dcOnlineText.textContent = `${online} 人在線`;
+
+        const channels = Array.isArray(data.channels) ? data.channels : [];
+
+        if(!channels.length){
+          dcText.textContent = "—";
+          dcVoice.textContent = "—";
+          dcChanHint.textContent = "頻道未公開（到 Discord：伺服器設定 → 伺服器小工具 → 選擇要顯示的頻道）";
+        }else{
+          const textCount = channels.filter(c => c.type === 0).length;
+          const voiceCount = channels.filter(c => c.type === 2).length;
+
+          dcText.textContent = textCount;
+          dcVoice.textContent = voiceCount;
+          dcChanHint.textContent = `已公開 ${channels.length} 個頻道`;
         }
+
+        dcUpdated.textContent = "最後更新：" + new Date().toLocaleTimeString("zh-Hant", {
+          hour:"2-digit",
+          minute:"2-digit"
+        });
+
+        if(data.instant_invite){
+          join.href = data.instant_invite;
+          join.style.opacity = 1;
+          join.textContent = "加入 Discord";
+        }else{
+          join.removeAttribute("href");
+          join.style.opacity = .62;
+          join.textContent = "未開放邀請";
+        }
+      }catch(err){
+        dcName.textContent = "無法載入資料";
+        dcDesc.textContent = "可能未開啟 Discord Server Widget，或嵌入平台限制 fetch。";
+        dcOnlineText.textContent = "- 人在線";
+        dcText.textContent = "—";
+        dcVoice.textContent = "—";
+        dcChanHint.textContent = "頻道未公開 / 無法取得資料";
+        dcUpdated.textContent = "最後更新：-";
+        console.error(err);
+      }
+    }
+
+    function updateCountdown(){
+      const target = new Date("2026-12-30T00:00:00+08:00");
+      const now = new Date();
+      let diff = target - now;
+
+      if(diff < 0) diff = 0;
+
+      const totalSeconds = Math.floor(diff / 1000);
+      const days = Math.floor(totalSeconds / 86400);
+      const hours = Math.floor((totalSeconds % 86400) / 3600);
+      const minutes = Math.floor((totalSeconds % 3600) / 60);
+      const seconds = totalSeconds % 60;
+
+      document.getElementById("days").textContent = days;
+      document.getElementById("hours").textContent = String(hours).padStart(2, "0");
+      document.getElementById("minutes").textContent = String(minutes).padStart(2, "0");
+      document.getElementById("seconds").textContent = String(seconds).padStart(2, "0");
+    }
+
+    function initActivitySlider(){
+      const slider = document.getElementById("activitySlider");
+      if(!slider) return;
+
+      const slides = Array.from(slider.querySelectorAll(".slide"));
+      const dots = Array.from(slider.querySelectorAll(".dotBtn"));
+      const prevBtn = slider.querySelector(".prev");
+      const nextBtn = slider.querySelector(".next");
+
+      if(!slides.length) return;
+
+      let current = 0;
+      let timer = null;
+
+      function showSlide(index){
+        current = (index + slides.length) % slides.length;
+
+        slides.forEach((slide, i) => {
+          slide.classList.toggle("active", i === current);
+        });
+
+        dots.forEach((dot, i) => {
+          dot.classList.toggle("active", i === current);
+        });
+      }
+
+      function nextSlide(){
+        showSlide(current + 1);
+      }
+
+      function prevSlide(){
+        showSlide(current - 1);
+      }
+
+      function startAuto(){
+        stopAuto();
+        timer = setInterval(nextSlide, 4500);
+      }
+
+      function stopAuto(){
+        if(timer){
+          clearInterval(timer);
+          timer = null;
+        }
+      }
+
+      prevBtn?.addEventListener("click", () => {
+        prevSlide();
+        startAuto();
       });
 
-      document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') {
-          dropdown.classList.remove('open');
-          toggle.setAttribute('aria-expanded', 'false');
-          toggle.focus();
-        }
+      nextBtn?.addEventListener("click", () => {
+        nextSlide();
+        startAuto();
       });
-    })();
+
+      dots.forEach(dot => {
+        dot.addEventListener("click", () => {
+          showSlide(Number(dot.dataset.slide || 0));
+          startAuto();
+        });
+      });
+
+      slider.addEventListener("mouseenter", stopAuto);
+      slider.addEventListener("mouseleave", startAuto);
+      slider.addEventListener("focusin", stopAuto);
+      slider.addEventListener("focusout", startAuto);
+
+      showSlide(0);
+      startAuto();
+    }
+
+    loadDiscordWidget();
+    updateCountdown();
+    setInterval(updateCountdown, 1000);
+    initActivitySlider();
   </script>
 </body>
 </html>
