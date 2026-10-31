@@ -2608,6 +2608,227 @@ html[data-theme="dark"] .fl-site .skinBox{
 }
 
 </style>
+
+<!-- Shared readability repair: preserve the Mint / Moonstone palette, fix theme leaks. -->
+<style id="floest-theme-contrast-repair">
+/* Quiet text is a little darker on paper-white surfaces, without changing the accent hues. */
+html[data-theme="light"] {--muted:#536B60;--muted2:#64796E}
+/* True ink/surface separation for dark-mode text cards and panels. */
+html[data-theme="dark"] body.fl-site .founderCard,
+html[data-theme="dark"] body.fl-site .founderInfo {
+  color:#E6EFEB !important;
+}
+html[data-theme="dark"] body.fl-site .founderCard {
+  background:#1E282E !important;border-color:rgba(221,238,228,.15) !important;
+}
+html[data-theme="dark"] body.fl-site .founderCard :is(.founderName,.founderId,.founderDesc) {
+  color:#F1F8F3 !important;
+}
+html[data-theme="dark"] body.fl-site .founderCard .founderDesc,
+html[data-theme="dark"] body.fl-site .founderCard .founderId {color:#BED0C5 !important}
+/* Ensure active navigation remains legible on every transparent header layer. */
+html[data-theme="dark"] body.fl-site .topbar {
+  background:rgba(28,37,43,.96) !important;border-color:rgba(215,235,223,.13) !important;
+}
+html[data-theme="dark"] body.fl-site .navPills a.active,
+html[data-theme="dark"] body.fl-site .navDropdown.active .navDropdownBtn,
+html[data-theme="dark"] body.fl-site #flNav>a.active {
+  color:#E8F9ED !important;background:#2B433B !important;
+}
+/* Contrast of primary CTA must match its background, not a legacy deep-green shade. */
+html[data-theme="dark"] body.fl-site .hero .actionBtn:not(.ghostBtn) {
+  color:#173C33 !important;background:#BDE8CD !important;
+}
+html[data-theme="dark"] body.fl-site .hero .actionBtn:not(.ghostBtn):hover {
+  color:#173C33 !important;background:#D9F4DF !important;
+}
+/* Carousel controls: the old green-on-dark arrows were not distinguishable. */
+html[data-theme="light"] body.fl-site .slideNav {
+  background:rgba(250,255,252,.96) !important;color:#155442 !important;
+  border:1px solid rgba(22,80,61,.24) !important;
+}
+html[data-theme="dark"] body.fl-site .slideNav {
+  background:#243A3B !important;color:#F1FBF5 !important;
+  border:1px solid rgba(220,241,230,.24) !important;
+}
+/* Activity records remain genuine dark data rows (including alternating rows and hover). */
+html[data-theme="dark"] body.fl-site .eventTableWrap tbody tr {
+  background:#202D35 !important;color:#ECF4EF !important;
+}
+html[data-theme="dark"] body.fl-site .eventTableWrap tbody tr:nth-child(even) {
+  background:#25353D !important;
+}
+html[data-theme="dark"] body.fl-site .eventTableWrap tbody tr:hover {
+  background:#31464B !important;
+}
+html[data-theme="dark"] body.fl-site .eventTableWrap tbody td {
+  color:#EAF3ED !important;border-color:rgba(205,231,218,.15) !important;
+}
+html[data-theme="dark"] body.fl-site .eventTableWrap :is(.dateText,.eventName) {
+  color:#F5FAF7 !important;
+}
+/* Download tables are also data panels, never white/gray stripes in night mode. */
+html[data-theme="dark"] body.fl-site .mapTableWrap .mapTable tbody tr {
+  background:#202D35 !important;color:#EAF3EE !important;
+}
+html[data-theme="dark"] body.fl-site .mapTableWrap .mapTable tbody tr:nth-child(even) {
+  background:#25353D !important;
+}
+html[data-theme="dark"] body.fl-site .mapTableWrap .mapTable tbody tr:hover {
+  background:#31464B !important;
+}
+html[data-theme="dark"] body.fl-site .mapTableWrap .mapTable :is(td,th) {
+  color:#EAF3EE !important;border-color:rgba(205,231,218,.15) !important;
+}
+html[data-theme="dark"] body.fl-site .mapTableWrap .mapTable thead tr,
+html[data-theme="dark"] body.fl-site .mapTableWrap .mapTable thead th {
+  background:#2A3C44 !important;color:#F0F8F2 !important;
+}
+html[data-theme="dark"] body.fl-site .mapTableWrap .mapTable .mapName {color:#F6FCF7 !important}
+html[data-theme="dark"] body.fl-site .mapTableWrap .mapTable :is(.mapSub,.mapVersion,.mapSize,.mapDate) {color:#C9DCD2 !important}
+/* Version jump links previously inherited a white background from the light mode. */
+html[data-theme="dark"] body.fl-site.fl-version .fl-gallery-anchor a {
+  color:#ECF8F0 !important;background:#26383A !important;
+  border-color:rgba(213,234,222,.22) !important;
+}
+html[data-theme="dark"] body.fl-site.fl-version .fl-gallery-anchor a:hover {
+  background:#304940 !important;border-color:rgba(213,234,222,.38) !important;
+}
+/* Orange accents stay orange, but small labels reach a readable foreground contrast. */
+html[data-theme="light"] body.fl-site :is(.tag-event,.tag-cross,.dc-pill,.event-pill) {
+  color:#865016 !important;
+}
+/* Hover/keyboard feedback is visible even on photos. */
+html[data-theme] body.fl-site :is(.slideNav,.fl-gallery-anchor a):focus-visible {
+  outline:3px solid var(--sea) !important;outline-offset:3px !important;
+}
+</style>
+
+<style id="floest-final-contrast-refinement">
+/* Small supporting text is legible on the light mint info chips. */
+html[data-theme="light"] body.fl-site .hero .quickLabel {color:#4B6659 !important}
+html[data-theme="light"] body.fl-site .tag-mc {color:#126B50 !important}
+</style>
+<style id="floest-spacing-motion-v1">
+
+/* FloestSMP — Spacing & Motion Polish · neutral to existing color palette */
+:root{--fl-ease-out:cubic-bezier(.22,1,.36,1);--fl-duration:280ms}
+.fl-site .hero{margin-bottom:46px!important}
+.fl-site .section{margin-bottom:50px!important;scroll-margin-top:108px}
+.fl-site .section > .sectionHead{margin-bottom:18px!important;padding-bottom:16px!important;gap:16px!important}
+.fl-site .sectionHead > div{min-width:0}
+.fl-site .sectionTitle{line-height:1.2!important}
+.fl-site .sectionDesc:empty{display:none!important}
+.fl-site .sectionKicker{margin-bottom:8px!important}
+.fl-site .heroActions{gap:10px!important;flex-wrap:wrap}
+.fl-site .quickGrid,.fl-site .statGrid{gap:9px!important}
+.fl-site .founderGrid{gap:16px!important}
+.fl-site .introGrid{gap:18px!important}
+.fl-site .portalGrid,.fl-site .galleryGrid{padding:3px 0 8px!important;gap:16px!important}
+.fl-site .timelineGrid{padding:3px 0 6px!important;gap:12px!important}
+.fl-site .mem-grid{padding:3px 0 7px!important;gap:16px!important}
+.fl-site .fl-gallery-anchor{margin-bottom:18px!important;gap:8px!important;scroll-margin-top:100px}
+.fl-site .fl-mint-filter{margin-bottom:17px!important}
+.fl-site .yearHead{gap:12px}
+.fl-site .eventTableWrap th,.fl-site .eventTableWrap td{vertical-align:top}
+.fl-site .role-box{min-width:0}
+.fl-site .founderCard,.fl-site .infoCard,.fl-site .portalCard,.fl-site .galleryItem,
+.fl-site .mem-card,.fl-site .timelineItem,.fl-site .yearCard,.fl-site .mapCard,
+.fl-site .downloadPanel,.fl-site .quickStat,
+.fl-site .actionBtn,.fl-site .ghostBtn,.fl-site .fl-gallery-anchor a,
+.fl-site .yearTabs a,.fl-site .navPills a,
+.fl-docs .docItem,.fl-docs .themeToggle,.fl-docs .topLink{
+ transition-property:transform,box-shadow,border-color,background-color,color,opacity,filter!important;
+ transition-duration:var(--fl-duration)!important;
+ transition-timing-function:var(--fl-ease-out)!important;
+}
+.fl-site .portalCard,.fl-site .galleryItem,.fl-site .mem-card,.fl-site .timelineItem,
+.fl-site .founderCard,.fl-site .infoCard,.fl-site .yearCard{will-change:auto}
+.fl-site .portalCard::before,.fl-site .galleryItem::before{
+ transition:transform 600ms var(--fl-ease-out),filter 500ms ease!important;transform-origin:center;
+}
+.fl-site .mem-middle{transition:filter 350ms ease,transform 480ms var(--fl-ease-out)!important;transform-origin:center}
+.fl-site a:focus-visible,.fl-site button:focus-visible,.fl-site input:focus-visible,
+.fl-site select:focus-visible,.fl-site [tabindex]:focus-visible,
+.fl-docs button:focus-visible,.fl-docs input:focus-visible,.fl-docs a:focus-visible{
+ outline:2px solid var(--teal,#58b69a)!important;outline-offset:3px!important;
+}
+.fl-site .fl-gallery-anchor a.fl-current,.fl-site .yearTabs a.fl-active{
+ border-color:var(--teal)!important;box-shadow:inset 0 -2px 0 var(--teal)!important;
+}
+.fl-site .topbar,.fl-docs .topbar{transition:box-shadow 250ms ease,border-color 250ms ease,background-color 250ms ease!important}
+.fl-site .topbar.fl-has-scrolled,.fl-docs .topbar.fl-has-scrolled{box-shadow:0 12px 26px rgba(0,0,0,.075)!important}
+@media(hover:hover) and (pointer:fine){
+ .fl-site .portalCard:hover,.fl-site .galleryItem:hover,.fl-site .mem-card:hover,
+ .fl-site .founderCard:hover,.fl-site .infoCard:hover,.fl-site .timelineItem:hover{
+   transform:translateY(-3px)!important;
+   box-shadow:0 17px 34px rgba(0,0,0,.11)!important;
+ }
+ .fl-site .portalCard:hover::before,.fl-site .galleryItem:hover::before{transform:scale(1.035)!important}
+ .fl-site .mem-card:hover .mem-middle{filter:saturate(1.08);transform:scale(1.012)}
+ .fl-site .yearCard:hover{box-shadow:0 11px 28px rgba(0,0,0,.065)!important}
+ .fl-site .quickStat:hover{transform:translateY(-2px)!important}
+ .fl-site .actionBtn:hover,.fl-site .ghostBtn:hover{transform:translateY(-2px)!important}
+ .fl-docs .docItem:hover{transform:translateX(2px)!important}
+}
+.fl-site .actionBtn:active,.fl-site .ghostBtn:active,.fl-site .portalCard:active,
+.fl-site .navPills a:active,.fl-site .yearTabs a:active,
+.fl-site .fl-gallery-anchor a:active,.fl-docs button:active{
+ transform:scale(.98)!important;transition-duration:100ms!important;
+}
+@media(min-width:900px){
+ .fl-site.fl-hub .heroCard{min-height:478px!important;padding-top:53px!important;padding-bottom:53px!important}
+ .fl-site .portalGrid{grid-auto-rows:minmax(220px,auto)}
+ .fl-site .section + .section{margin-top:0!important}
+}
+@media(max-width:900px){
+ .fl-site .hero{margin-bottom:38px!important}
+ .fl-site .section{margin-bottom:43px!important}
+ .fl-site .section > .sectionHead{margin-bottom:16px!important;padding-bottom:14px!important}
+ .fl-site .portalGrid,.fl-site .galleryGrid,.fl-site .mem-grid{gap:14px!important}
+ .fl-site .yearHead{padding:15px 16px!important}
+}
+@media(max-width:640px){
+ .fl-site .hero{margin-bottom:33px!important}
+ .fl-site .section{margin-bottom:36px!important;scroll-margin-top:88px}
+ .fl-site .section > .sectionHead{margin-bottom:15px!important;padding-bottom:13px!important}
+ .fl-site .heroCard{min-height:0!important;padding:31px 22px 0!important}
+ .fl-site .heroActions{margin-top:20px!important;gap:9px!important}
+ .fl-site .quickCard{margin:19px 14px 14px!important;padding:16px!important;gap:9px!important}
+ .fl-site .quickGrid{gap:8px!important}
+ .fl-site .quickStat{min-height:0!important;padding:10px 11px!important}
+ .fl-site .portalGrid,.fl-site .galleryGrid{padding:2px 0 4px!important;gap:12px!important}
+ .fl-site .mem-grid{padding:2px 0 4px!important;gap:13px!important}
+ .fl-site .timelineGrid{padding:2px 0 4px!important;gap:10px!important}
+ .fl-site .timelineItem{gap:10px!important;padding:14px!important}
+ .fl-site .sectionDesc{line-height:1.7!important}
+ .fl-site .fl-gallery-anchor{margin-bottom:15px!important;gap:7px!important}
+ .fl-site .fl-mint-filter{margin-bottom:14px!important}
+ .fl-site .yearHead{padding:14px!important}
+ .fl-site .founderGrid,.fl-site .introGrid{gap:12px!important}
+ .fl-site .portalCard,.fl-site .galleryItem{min-width:0}
+ .fl-site button,.fl-site a{ -webkit-tap-highlight-color:transparent }
+}
+@media(prefers-reduced-motion:reduce){
+ :root{--fl-duration:0ms}
+ html{scroll-behavior:auto!important}
+ .fl-site *, .fl-site *::before, .fl-site *::after,
+ .fl-docs *, .fl-docs *::before, .fl-docs *::after{
+ transition-duration:0.01ms!important;animation-duration:0.01ms!important;
+ animation-iteration-count:1!important;scroll-behavior:auto!important;
+ }
+}
+/* Documentation layout rhythm */
+.fl-docs .docHeader{margin-bottom:20px!important}
+.fl-docs .content{min-width:0}
+.fl-docs .markdownBody{line-height:1.85}
+.fl-docs .markdownBody :is(h2,h3,h4){scroll-margin-top:90px}
+.fl-docs .markdownBody h2{margin-top:34px;margin-bottom:13px}
+.fl-docs .markdownBody h3{margin-top:25px;margin-bottom:10px}
+.fl-docs .markdownBody p,.fl-docs .markdownBody ul,.fl-docs .markdownBody ol{margin-top:0;margin-bottom:16px}
+@media(max-width:700px){.fl-docs .content{padding:22px 17px 56px!important}.fl-docs .docHeader{margin-bottom:18px!important;padding:17px!important}}
+
+</style>
 </head>
 <body class="fl-site fl-hub"><div aria-hidden="true" class="fl-progress"></div>
 <main class="page">
@@ -3140,6 +3361,59 @@ if(tabs.length&&'IntersectionObserver'in window){const sections=[...tabs].map(t=
   doc.addEventListener('keydown',e=>{if(e.key!=='Tab'||!nav.classList.contains('is-open')||!matchMedia('(max-width:780px)').matches)return;const focusables=[...nav.querySelectorAll('a[href],button:not([disabled])')].filter(x=>x.getClientRects().length);if(!focusables.length)return;const first=focusables[0],last=focusables[focusables.length-1];if(e.shiftKey&&doc.activeElement===first){e.preventDefault();last.focus()}else if(!e.shiftKey&&doc.activeElement===last){e.preventDefault();first.focus()}});
   addEventListener('resize',()=>{if(innerWidth>780)close()});
  }
+})();
+
+</script>
+<script id="floest-polish-interactions">
+
+/* FloestSMP gentle motion and navigation feedback — no content hidden without JS */
+(function(){
+  if(window.__floestPolishInitialized)return;window.__floestPolishInitialized=true;
+  const reduced=window.matchMedia('(prefers-reduced-motion: reduce)');
+  const isReduced=()=>reduced.matches;
+  const topbar=document.querySelector('.topbar');
+  let raf=0;
+  function onScroll(){
+    if(raf)return;
+    raf=requestAnimationFrame(()=>{
+      if(topbar)topbar.classList.toggle('fl-has-scrolled',window.scrollY>24);
+      raf=0;
+    });
+  }
+  window.addEventListener('scroll',onScroll,{passive:true});onScroll();
+  const anchors=[...document.querySelectorAll('.fl-gallery-anchor a[href^="#"]')];
+  if(anchors.length && 'IntersectionObserver' in window){
+    const areas=anchors.map(a=>document.getElementById(decodeURIComponent(a.hash.slice(1)))).filter(Boolean);
+    const positions=new Map();
+    const observer=new IntersectionObserver(entries=>{
+      entries.forEach(e=>positions.set(e.target.id,e.boundingClientRect.top));
+      let current=null;
+      for(const el of areas){if(el.getBoundingClientRect().top <= Math.min(230,innerHeight*.4)) current=el.id;}
+      if(!current) current=areas[0]?.id;
+      anchors.forEach(a=>{const match=a.hash.slice(1)===current;a.classList.toggle('fl-current',match);if(match)a.setAttribute('aria-current','location');else a.removeAttribute('aria-current');});
+    },{rootMargin:'-10% 0px -76% 0px',threshold:0});
+    areas.forEach(el=>observer.observe(el));
+  }
+  // WAAPI entry animation: nothing is initially hidden, safe if scripts fail.
+  if(isReduced() || !('IntersectionObserver' in window))return;
+  const selectors='.section > .sectionHead,.founderCard,.portalCard,.galleryItem,.timelineItem,.yearCard,.mem-card,.infoCard,.mapCard';
+  const nodes=[...document.querySelectorAll(selectors)];
+  const seen=new WeakSet();
+  const reveal=new IntersectionObserver(entries=>{
+    for(const e of entries){
+      if(!e.isIntersecting||seen.has(e.target))continue;
+      seen.add(e.target);reveal.unobserve(e.target);
+      if(isReduced()||typeof e.target.animate!=='function')continue;
+      const r=e.target.getBoundingClientRect();
+      if(r.top<0||r.top>innerHeight*1.15)continue;
+      const i=[...e.target.parentElement.children].indexOf(e.target);
+      e.target.animate([
+       {opacity:.7,transform:'translate3d(0,11px,0)'},
+       {opacity:1,transform:'translate3d(0,0,0)'}
+      ],{duration:420,delay:Math.min(Math.max(0,i),3)*38,easing:'cubic-bezier(.22,1,.36,1)',fill:'none'});
+    }
+  },{rootMargin:'0px 0px -25px 0px',threshold:.08});
+  nodes.forEach(node=>reveal.observe(node));
 })();
 
 </script>
