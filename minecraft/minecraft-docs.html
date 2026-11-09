@@ -1952,6 +1952,62 @@ html[data-theme="light"] body.fl-site .tag-mc {color:#126B50 !important}
 @media(max-width:390px){.fl-docs .topbar{gap:6px!important}.fl-docs .searchWrap{min-width:0!important}}
 
 </style>
+<style id="fl-header-canvas-fix">
+
+/* ==============================================================
+   Mint / Moonstone | Header color continuity (2026-11-09)
+   The header must sit seamlessly on the page background.
+   Earlier theme layers made the masthead a semi-transparent card,
+   producing a different color along the content-width boundary.
+   Keep the active link and theme switch as clearly differentiated
+   controls; only the surrounding masthead uses the page canvas.
+   ============================================================== */
+html[data-theme="light"] body.fl-site .topbar,
+html:not([data-theme]) body.fl-site .topbar,
+html[data-theme="light"] body.fl-docs .topbar,
+html:not([data-theme]) body.fl-docs .topbar {
+  background:#F4F7F4 !important;
+  background-color:#F4F7F4 !important;
+  -webkit-backdrop-filter:none !important;
+  backdrop-filter:none !important;
+  border-top:0 !important;
+  border-right:0 !important;
+  border-left:0 !important;
+  border-bottom:1px solid rgba(37,69,59,.13) !important;
+  box-shadow:none !important;
+}
+html[data-theme="dark"] body.fl-site .topbar,
+html[data-theme="dark"] body.fl-docs .topbar {
+  background:#11171B !important;
+  background-color:#11171B !important;
+  -webkit-backdrop-filter:none !important;
+  backdrop-filter:none !important;
+  border-top:0 !important;
+  border-right:0 !important;
+  border-left:0 !important;
+  border-bottom:1px solid rgba(202,224,215,.15) !important;
+  box-shadow:none !important;
+}
+/* Preserve the accent colors, but never let hover create a second
+   dark header rectangle or obscure a button's readable foreground. */
+html[data-theme="dark"] body.fl-site .navPills > a:hover,
+html[data-theme="dark"] body.fl-site .navDropdownBtn:hover {
+  background:#25342F !important;
+  color:#E6F6EB !important;
+}
+html[data-theme="dark"] body.fl-site .navPills > a.active,
+html[data-theme="dark"] body.fl-site .navDropdown.active .navDropdownBtn {
+  background:#2B433B !important;
+  color:#E8F9ED !important;
+}
+/* Documents use the same masthead canvas but keep their distinct
+   search and article-navigation interactions intact. */
+html[data-theme="dark"] body.fl-docs .topbar .brand,
+html[data-theme="dark"] body.fl-docs .topbar .topLink {
+  color:#E6EFEB !important;
+}
+
+</style>
 </head>
 <body class="fl-docs">
 <header class="topbar">
@@ -1998,7 +2054,7 @@ html[data-theme="light"] body.fl-site .tag-mc {color:#126B50 !important}
 <div class="breadcrumb">
 <span>Minecraft</span>
 <span>›</span>
-<span id="breadcrumbName">Documentation</span>
+<span id="breadcrumbName">教學與公告</span>
 </div>
 <h1 class="docTitle" id="docTitle">教學與公告</h1>
 <div class="docFile" id="docFile">從左側選擇一篇文章</div>
