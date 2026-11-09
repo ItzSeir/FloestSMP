@@ -2355,6 +2355,62 @@ html[data-theme="light"] body.fl-site .tag-mc {color:#126B50 !important}
 @media(max-width:700px){.fl-docs .content{padding:22px 17px 56px!important}.fl-docs .docHeader{margin-bottom:18px!important;padding:17px!important}}
 
 </style>
+<style id="fl-header-canvas-fix">
+
+/* ==============================================================
+   Mint / Moonstone | Header color continuity (2026-11-09)
+   The header must sit seamlessly on the page background.
+   Earlier theme layers made the masthead a semi-transparent card,
+   producing a different color along the content-width boundary.
+   Keep the active link and theme switch as clearly differentiated
+   controls; only the surrounding masthead uses the page canvas.
+   ============================================================== */
+html[data-theme="light"] body.fl-site .topbar,
+html:not([data-theme]) body.fl-site .topbar,
+html[data-theme="light"] body.fl-docs .topbar,
+html:not([data-theme]) body.fl-docs .topbar {
+  background:#F4F7F4 !important;
+  background-color:#F4F7F4 !important;
+  -webkit-backdrop-filter:none !important;
+  backdrop-filter:none !important;
+  border-top:0 !important;
+  border-right:0 !important;
+  border-left:0 !important;
+  border-bottom:1px solid rgba(37,69,59,.13) !important;
+  box-shadow:none !important;
+}
+html[data-theme="dark"] body.fl-site .topbar,
+html[data-theme="dark"] body.fl-docs .topbar {
+  background:#11171B !important;
+  background-color:#11171B !important;
+  -webkit-backdrop-filter:none !important;
+  backdrop-filter:none !important;
+  border-top:0 !important;
+  border-right:0 !important;
+  border-left:0 !important;
+  border-bottom:1px solid rgba(202,224,215,.15) !important;
+  box-shadow:none !important;
+}
+/* Preserve the accent colors, but never let hover create a second
+   dark header rectangle or obscure a button's readable foreground. */
+html[data-theme="dark"] body.fl-site .navPills > a:hover,
+html[data-theme="dark"] body.fl-site .navDropdownBtn:hover {
+  background:#25342F !important;
+  color:#E6F6EB !important;
+}
+html[data-theme="dark"] body.fl-site .navPills > a.active,
+html[data-theme="dark"] body.fl-site .navDropdown.active .navDropdownBtn {
+  background:#2B433B !important;
+  color:#E8F9ED !important;
+}
+/* Documents use the same masthead canvas but keep their distinct
+   search and article-navigation interactions intact. */
+html[data-theme="dark"] body.fl-docs .topbar .brand,
+html[data-theme="dark"] body.fl-docs .topbar .topLink {
+  color:#E6EFEB !important;
+}
+
+</style>
 </head>
 <body class="fl-site fl-version"><div aria-hidden="true" class="fl-progress"></div>
 <main class="page">
@@ -2363,7 +2419,7 @@ html[data-theme="light"] body.fl-site .tag-mc {color:#126B50 !important}
 <div class="brandMark"> <img alt="葉離" onerror="this.style.display='none'" src="https://raw.githubusercontent.com/ItzSeir/ItzSeir/bc6a1e6687c70f0eb1ddcbd431e869bf2262dadb/Profile%20Pitcure/%E8%91%89%E9%9B%A2.png"/> </div>
 <div class="brandText">
 <strong>葉離社群</strong>
-<span>Minecraft memory archive</span>
+<span>版本回憶</span>
 </div>
 </a>
 <nav aria-label="主選單" class="navPills" id="flNav"><div class="fl-drawer-head"><strong>探索葉離社群</strong><button id="flMintClose" class="fl-mint-close" type="button" aria-label="關閉選單">×</button></div><div class="fl-nav-label">頁面導覽</div>
@@ -2428,7 +2484,7 @@ html[data-theme="light"] body.fl-site .tag-mc {color:#126B50 !important}
 <g fill="#b8e7c7" opacity=".66"><rect height="5" width="5" x="121" y="113"></rect><rect height="4" width="4" x="450" y="122"></rect><rect height="5" width="5" x="583" y="222"></rect><rect height="3" width="3" x="244" y="114"></rect><rect height="3" width="3" x="470" y="94"></rect></g>
 <path d="M59 306L59 302M57 304L61 304M553 83L553 77M550 80L556 80" opacity=".7" stroke="#b5e3cb" stroke-width="1.5"></path>
 </svg></div>
-<div class="eyebrow sea"><span class="dot"></span> Minecraft Memory</div>
+<div class="eyebrow sea"><span class="dot"></span> 原味生存回憶</div>
 <h1 class="heroTitle">1.20.1<span>原味生存</span></h1>
 <p class="heroDesc">這裡整理葉離 / 花祭成員在 1.20.1 原味生存時期的建築、地標與回憶卡片。已預先套用與其他版本一致的深海藍綠版型，圖片路徑直接對應 ../data/1.20.1/1.png 到 ../data/1.20.1/32.png。</p>
 <div class="heroActions">
@@ -2451,7 +2507,7 @@ html[data-theme="light"] body.fl-site .tag-mc {color:#126B50 !important}
 <nav class="fl-gallery-anchor" aria-label="快速切換建築區域"><a href="#buildings">建築回憶</a></nav><section class="section" id="buildings">
 <div class="sectionHead">
 <div>
-<div class="sectionKicker"><span class="dot"></span> Build Memories</div>
+
 <h2 class="sectionTitle">建築回憶</h2>
 <p class="sectionDesc">這裡收錄 1.20.1 版本的建築圖片與回憶卡片，方便之後再逐步補上建築名稱與參與者。</p>
 </div>
@@ -3133,7 +3189,7 @@ html[data-theme="light"] body.fl-site .tag-mc {color:#126B50 !important}
 </article>
 </div>
 </section>
-<p class="footerNote">FloestSMP 1.20.1 Memory Archive</p>
+<p class="footerNote">葉離社群 · 1.20.1 版本回憶</p>
 </main>
 <div aria-hidden="true" aria-label="圖片預覽" aria-modal="true" class="image-lightbox" id="imageLightbox" role="dialog">
 <div class="lightbox-topbar">
