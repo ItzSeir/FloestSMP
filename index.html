@@ -2829,6 +2829,62 @@ html[data-theme="light"] body.fl-site .tag-mc {color:#126B50 !important}
 @media(max-width:700px){.fl-docs .content{padding:22px 17px 56px!important}.fl-docs .docHeader{margin-bottom:18px!important;padding:17px!important}}
 
 </style>
+<style id="fl-header-canvas-fix">
+
+/* ==============================================================
+   Mint / Moonstone | Header color continuity (2026-11-09)
+   The header must sit seamlessly on the page background.
+   Earlier theme layers made the masthead a semi-transparent card,
+   producing a different color along the content-width boundary.
+   Keep the active link and theme switch as clearly differentiated
+   controls; only the surrounding masthead uses the page canvas.
+   ============================================================== */
+html[data-theme="light"] body.fl-site .topbar,
+html:not([data-theme]) body.fl-site .topbar,
+html[data-theme="light"] body.fl-docs .topbar,
+html:not([data-theme]) body.fl-docs .topbar {
+  background:#F4F7F4 !important;
+  background-color:#F4F7F4 !important;
+  -webkit-backdrop-filter:none !important;
+  backdrop-filter:none !important;
+  border-top:0 !important;
+  border-right:0 !important;
+  border-left:0 !important;
+  border-bottom:1px solid rgba(37,69,59,.13) !important;
+  box-shadow:none !important;
+}
+html[data-theme="dark"] body.fl-site .topbar,
+html[data-theme="dark"] body.fl-docs .topbar {
+  background:#11171B !important;
+  background-color:#11171B !important;
+  -webkit-backdrop-filter:none !important;
+  backdrop-filter:none !important;
+  border-top:0 !important;
+  border-right:0 !important;
+  border-left:0 !important;
+  border-bottom:1px solid rgba(202,224,215,.15) !important;
+  box-shadow:none !important;
+}
+/* Preserve the accent colors, but never let hover create a second
+   dark header rectangle or obscure a button's readable foreground. */
+html[data-theme="dark"] body.fl-site .navPills > a:hover,
+html[data-theme="dark"] body.fl-site .navDropdownBtn:hover {
+  background:#25342F !important;
+  color:#E6F6EB !important;
+}
+html[data-theme="dark"] body.fl-site .navPills > a.active,
+html[data-theme="dark"] body.fl-site .navDropdown.active .navDropdownBtn {
+  background:#2B433B !important;
+  color:#E8F9ED !important;
+}
+/* Documents use the same masthead canvas but keep their distinct
+   search and article-navigation interactions intact. */
+html[data-theme="dark"] body.fl-docs .topbar .brand,
+html[data-theme="dark"] body.fl-docs .topbar .topLink {
+  color:#E6EFEB !important;
+}
+
+</style>
 </head>
 <body class="fl-site fl-hub"><div aria-hidden="true" class="fl-progress"></div>
 <main class="page">
@@ -2905,7 +2961,7 @@ html[data-theme="light"] body.fl-site .tag-mc {color:#126B50 !important}
 <path d="M59 306L59 302M57 304L61 304M553 83L553 77M550 80L556 80" opacity=".7" stroke="#b5e3cb" stroke-width="1.5"></path>
 </svg></div>
 <div class="heroCard">
-<div class="eyebrow"><span class="dot"></span> FLOEST COMMUNITY</div>
+<div class="eyebrow"><span class="dot"></span> 社群首頁</div>
 <h1 class="heroTitle">葉離社群<span>一起留下故事。</span></h1>
 <p class="heroDesc">從 Minecraft 生存、相遇的朋友，到每一場值得記得的活動。這裡收藏我們共同走過的時光。</p>
 <div class="heroActions">
@@ -2940,7 +2996,7 @@ html[data-theme="light"] body.fl-site .tag-mc {color:#126B50 !important}
 <section class="section" id="community">
 <div class="sectionHead">
 <div>
-<div class="sectionKicker"><span class="dot"></span> Community</div>
+
 <h2 class="sectionTitle">社群介紹</h2>
 <p class="sectionDesc"></p>
 </div>
@@ -3007,7 +3063,7 @@ html[data-theme="light"] body.fl-site .tag-mc {color:#126B50 !important}
 <section class="section" id="activity">
 <div class="sectionHead">
 <div>
-<div class="sectionKicker"><span class="dot" style="background:var(--warm);"></span> Events</div>
+
 <h2 class="sectionTitle">活動</h2>
 <p class="sectionDesc">看看社群近期活動、精彩畫面與大家一起留下的回憶。</p>
 </div>
@@ -3020,7 +3076,7 @@ html[data-theme="light"] body.fl-site .tag-mc {color:#126B50 !important}
 <img alt="花祭 x 葉離新網點活動圖片" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';" src="assets/activity-1.jpg"/>
 <div class="slideFallback" style="display:none;">
 <div class="fallbackText">
-<div class="fallbackKicker">FLOWERSMP</div>
+<div class="fallbackKicker">社群消息</div>
 <div class="fallbackTitle">花祭 x 葉離<br/>新網點</div>
 <span class="fallbackBtn">睇更多</span>
 </div>
@@ -3032,7 +3088,7 @@ html[data-theme="light"] body.fl-site .tag-mc {color:#126B50 !important}
 </div>
 </div>
 <div class="slideOverlay">
-<div class="slideKicker">FLOWERSMP</div>
+<div class="slideKicker">社群消息</div>
 <div class="slideTitle">花祭 x 葉離<br/>新網點</div>
 <div class="slideDesc">最新活動資訊與社群內容展示。</div>
 </div>
@@ -3041,7 +3097,7 @@ html[data-theme="light"] body.fl-site .tag-mc {color:#126B50 !important}
 <img alt="週年活動預告圖片" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';" src="assets/activity-2.jpg"/>
 <div class="slideFallback" style="display:none;">
 <div class="fallbackText">
-<div class="fallbackKicker">COMMUNITY EVENT</div>
+<div class="fallbackKicker">社群活動</div>
 <div class="fallbackTitle">週年活動<br/>預告</div>
 <span class="fallbackBtn">睇更多</span>
 </div>
@@ -3053,7 +3109,7 @@ html[data-theme="light"] body.fl-site .tag-mc {color:#126B50 !important}
 </div>
 </div>
 <div class="slideOverlay">
-<div class="slideKicker">COMMUNITY EVENT</div>
+<div class="slideKicker">社群活動</div>
 <div class="slideTitle">週年活動預告</div>
 <div class="slideDesc">一起參與社群週年活動與特別企劃。</div>
 </div>
@@ -3062,7 +3118,7 @@ html[data-theme="light"] body.fl-site .tag-mc {color:#126B50 !important}
 <img alt="伺服器新內容圖片" onerror="this.style.display='none'; this.nextElementSibling.style.display='grid';" src="assets/activity-3.jpg"/>
 <div class="slideFallback" style="display:none;">
 <div class="fallbackText">
-<div class="fallbackKicker">SPECIAL UPDATE</div>
+<div class="fallbackKicker">內容更新</div>
 <div class="fallbackTitle">伺服器<br/>新內容</div>
 <span class="fallbackBtn">睇更多</span>
 </div>
@@ -3074,7 +3130,7 @@ html[data-theme="light"] body.fl-site .tag-mc {color:#126B50 !important}
 </div>
 </div>
 <div class="slideOverlay">
-<div class="slideKicker">SPECIAL UPDATE</div>
+<div class="slideKicker">內容更新</div>
 <div class="slideTitle">伺服器新內容</div>
 <div class="slideDesc">新增地圖、玩法與更多有趣內容。</div>
 </div>
